@@ -40,4 +40,16 @@ public class VaultsService{
 
         return vault;
     }
+
+    internal string DeleteVault(int vaultId, string userId)
+    {
+        Vault vault = GetVaultById(vaultId, userId);
+
+        if(vault.CreatorId != userId) throw new Exception("YOU CANNOT DELETE ANOTHER PERSON'S VAULT");
+
+        _repository.DeleteVault(vaultId);
+
+        return $"Deleted vault: {vault.Name}";
+
+    }
 }
