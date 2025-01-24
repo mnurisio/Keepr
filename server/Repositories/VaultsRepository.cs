@@ -1,5 +1,6 @@
 
 
+
 namespace keepr.Repositories;
 
 
@@ -52,5 +53,20 @@ public class VaultsRepository
         }, new {vaultId}).SingleOrDefault();
 
         return vault;
+    }
+
+    internal void UpdateVault(Vault vaultData)
+    {
+        string sql = @"
+        UPDATE vaults
+        SET
+        name = @Name,
+        is_private = @IsPrivate
+        WHERE id = @Id LIMIT 1;";
+
+        int rowsAffected = _db.Execute(sql, vaultData);
+
+        if(rowsAffected == 0) throw new Exception("UPDATE DID NOT AFFECT ANY ROWS");
+        if(rowsAffected > 1) throw new Exception("UPDATE AFFECTED TOO MANY ROWS");
     }
 }

@@ -2,7 +2,8 @@ namespace keepr.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class VaultsController : ControllerBase{
+public class VaultsController : ControllerBase
+{
 
     public VaultsController(Auth0Provider auth0Provider, VaultsService vaultsService)
     {
@@ -16,7 +17,8 @@ public class VaultsController : ControllerBase{
 
     [Authorize]
     [HttpPost]
-    public async Task<ActionResult<Vault>> CreateVault([FromBody] Vault vaultData){
+    public async Task<ActionResult<Vault>> CreateVault([FromBody] Vault vaultData)
+    {
         try
         {
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
@@ -26,23 +28,42 @@ public class VaultsController : ControllerBase{
         }
         catch (Exception error)
         {
-            
+
             return BadRequest(error.Message);
         }
     }
 
     [HttpGet("{vaultId}")]
-    public async Task<ActionResult<Vault>> GetVaultById(int vaultId){
+    public async Task<ActionResult<Vault>> GetVaultById(int vaultId)
+    {
         try
         {
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
             Vault vault = _vaultsService.GetVaultById(vaultId, userInfo?.Id);
             return Ok(vault);
-            
+
         }
         catch (Exception error)
         {
-            
+
+            return BadRequest(error.Message);
+        }
+    }
+
+    [Authorize]
+    [HttpPut("{vaultId}")]
+    public async Task<ActionResult<Vault>> UpdateVault([FromBody] Vault vaultData, int vaultId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            Vault vault = _vaultsService.UpdateVault(vaultId, userInfo.Id, vaultData);
+            return Ok(vault);
+
+        }
+        catch (Exception error)
+        {
+
             return BadRequest(error.Message);
         }
     }
