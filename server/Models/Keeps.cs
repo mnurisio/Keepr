@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace keepr.Models;
 
-public class Keeps : RepoItem<int>
+public class Keep : RepoItem<int>
 {
 public string Name { get; set; }
 [MaxLength(1000)] public string Description { get; set; }

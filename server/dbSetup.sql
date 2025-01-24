@@ -7,6 +7,8 @@ CREATE TABLE IF NOT EXISTS accounts(
   picture VARCHAR(255) COMMENT 'User Picture'
 ) default charset utf8mb4 COMMENT '';
 
+ALTER TABLE accounts ADD COLUMN cover_img TEXT
+
 
 CREATE TABLE keeps(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -15,8 +17,9 @@ CREATE TABLE keeps(
   name TINYTEXT NOT NULL,
   description TEXT NOT NULL,
   img TEXT NOT NULL,
-  views INT NOT NULL,
+  views INT NOT NULL DEFAULT 0,
   creator_id VARCHAR(255) NOT NULL,
   FOREIGN KEY (creator_id) REFERENCES accounts (id) ON DELETE CASCADE
-
 )
+
+
