@@ -34,4 +34,31 @@ public class KeepsService
 
         return keep;
     }
+
+    internal Keep UpdateKeep(Keep keepData, string userId, int keepId)
+    {
+        Keep keep = GetKeepById(keepId);
+
+        if(keep.CreatorId != userId) throw new Exception ("YOU CANNOT UPDATE ANOTHER PERSON'S KEEP");
+
+        keep.Name = keepData.Name ?? keep.Name;
+        keep.Description = keepData.Description ?? keep.Description;
+
+        _repository.UpdateKeep(keep);
+
+        return keep;
+
+    }
+
+    internal string DeleteKeep(int keepId, string userId)
+    {
+        Keep keep = GetKeepById(keepId);
+
+        if(keep.CreatorId != userId) throw new Exception ("YOU CANNOT DELETE ANOTHER PERSON'S KEEP");
+
+        _repository.DeleteKeep(keepId);
+
+        return $"Deleted Keep name: {keep.Name}";
+
+    }
 }

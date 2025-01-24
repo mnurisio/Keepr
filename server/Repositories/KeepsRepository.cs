@@ -1,6 +1,7 @@
 
 
 
+
 namespace keepr.Repositories;
 
 public class KeepsRepository
@@ -71,5 +72,32 @@ public class KeepsRepository
         }, new { keepId }).SingleOrDefault();
 
         return keep;
+    }
+
+    internal void UpdateKeep(Keep updateData)
+    {
+        string sql = @"
+        UPDATE keeps
+        SET
+        name = @Name,
+        description = @Description
+        WHERE id = @Id LIMIT 1;";
+
+
+        int rowsAffected = _db.Execute(sql, updateData);
+
+        if(rowsAffected == 0) throw new Exception("UPDATE DID NOT AFFECT ANY ROWS");
+        if(rowsAffected > 1) throw new Exception("UPDATE AFFECTED TOO MANY ROWS");
+    }
+
+    internal void DeleteKeep(int keepId)
+    {
+        string sql = @"DELETE FROM keeps WHERE id = @keepId LIMIT 1;";
+
+        int rowsAffected = _db.Execute(sql, new {keepId});
+
+        if(rowsAffected == 0) throw new Exception("DELETE DID NOT AFFECT ANY ROWS");
+        if(rowsAffected > 1) throw new Exception("DELETE AFFECTED TOO MANY ROWS");
+
     }
 }
