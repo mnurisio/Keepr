@@ -47,4 +47,12 @@ CREATE TABLE vault_keeps(
   FOREIGN KEY (vault_id) REFERENCES vaults (id) ON DELETE CASCADE
 )
 
-SELECT * FROM vaults
+CREATE VIEW kept_count_view AS
+SELECT
+keeps.*,
+COUNT(vault_keeps.id) AS kept
+FROM keeps
+LEFT JOIN vault_keeps ON vault_keeps.keep_id = keeps.id
+GROUP BY(keeps.id)
+
+
