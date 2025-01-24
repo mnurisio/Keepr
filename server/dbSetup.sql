@@ -56,3 +56,11 @@ LEFT JOIN vault_keeps ON vault_keeps.keep_id = keeps.id
 GROUP BY(keeps.id)
 
 
+
+
+SELECT
+vault_keeps.*,
+accounts.*
+FROM vault_keeps
+JOIN accounts ON accounts.id = vault_keeps.creator_id
+WHERE vault_keeps.id = LAST_INSERT_ID()
