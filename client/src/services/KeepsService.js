@@ -4,6 +4,10 @@ import { AppState } from "@/AppState.js"
 import { Keep } from "@/models/Keep.js"
 
 class KeepsService {
+    setActiveKeep(keep) {
+        AppState.activeKeep = keep
+        logger.log('set active keep', AppState.activeKeep)
+    }
 
 
     async getAllKeeps() {
