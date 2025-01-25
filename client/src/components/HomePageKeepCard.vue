@@ -13,23 +13,23 @@ const props = defineProps({
 })
 
 
-function setActiveKeep(){
-  keepsService.setActiveKeep(props.keep)
+function setActiveKeep() {
+    keepsService.setActiveKeep(props.keep)
 }
 
 </script>
 
 
 <template>
-    <div @click="setActiveKeep()">
+    <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal">
         <img :src="keep.img" :alt="keep.name" class="keep-img">
         <div class="d-flex flex-column justify-content-between">
-            <div class="col-6">
+            <div>
                 <div v-if="keep.creatorId == account?.id">
                     <button title="Delete Keep" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
                 </div>
             </div>
-            <div class="col-6">
+            <div>
                 <div class="keep-name">
                     {{ keep.name }}
                 </div>

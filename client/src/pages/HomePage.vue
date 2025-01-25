@@ -36,16 +36,34 @@ async function getAllKeeps() {
 </template>
 
 <style scoped lang="scss">
-.masonry-container {
-  columns: 400px;
-  column-gap: 2rem;
-  width: 100%;
 
+@media(min-width: 768px){
 
-  .masonry-object {
-    break-inside: avoid;
-    display: inline-block;
-    position: relative;
+  .masonry-container {
+    columns: 400px;
+    column-gap: 2rem;
+    width: 100%;
+    
+    
+    .masonry-object {
+      break-inside: avoid;
+      display: inline-block;
+      position: relative;
+    }
+  }
+}
+@media(max-width: 768px){
+
+  .masonry-container {
+    columns: 150px;
+    width: 100%;
+    
+    
+    .masonry-object {
+      break-inside: avoid;
+      display: inline-block;
+      position: relative;
+    }
   }
 }
 
