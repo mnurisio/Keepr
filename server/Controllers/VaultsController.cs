@@ -5,14 +5,16 @@ namespace keepr.Controllers;
 public class VaultsController : ControllerBase
 {
 
-    public VaultsController(Auth0Provider auth0Provider, VaultsService vaultsService)
+    public VaultsController(Auth0Provider auth0Provider, VaultsService vaultsService, VaultKeepService vaultKeepService)
     {
 
         _auth0Provider = auth0Provider;
         _vaultsService = vaultsService;
+        _vaultKeepService = vaultKeepService;
     }
     private readonly VaultsService _vaultsService;
     private readonly Auth0Provider _auth0Provider;
+    private readonly VaultKeepService _vaultKeepService;
 
 
     [Authorize]
@@ -70,13 +72,32 @@ public class VaultsController : ControllerBase
 
     [Authorize]
     [HttpDelete("{vaultId}")]
-    public async Task<ActionResult<string>> DeleteVault(int vaultId){
+    public async Task<ActionResult<string>> DeleteVault(int vaultId)
+    {
         try
         {
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
             string message = _vaultsService.DeleteVault(vaultId, userInfo.Id);
             return Ok(message);
-            
+
+        }
+        catch (Exception error)
+        {
+
+            return BadRequest(error.Message);
+        }
+    }
+
+
+    [HttpGet("{vaultId}/keeps")]
+    public async Task<ActionResult<List<VaultKeepKeep>>> GetKeepsInPublicVault(int vaultId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            List<VaultKeepKeep> keeps = _vaultKeepService.GetKeepsInPublicVault(vaultId, userInfo?.Id);
+            return Ok(keeps);
+
         }
         catch (Exception error)
         {

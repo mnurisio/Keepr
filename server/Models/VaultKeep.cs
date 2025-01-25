@@ -10,6 +10,14 @@ public class VaultKeep : RepoItem<int>
 public class VaultKeepProfile : Profile
 {
     public int VaultKeepId { get; set; }
+
+}
+
+
+public class VaultKeepKeep : Keep
+{
+    public int VaultKeepId { get; set; }
     public int VaultId { get; set; }
-    public int KeepId { get; set; }
+
+    
 }
