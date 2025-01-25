@@ -2,19 +2,40 @@
 import { AppState } from '@/AppState';
 import { Keep } from '@/models/Keep';
 import { keepsService } from '@/services/KeepsService';
-import { computed } from 'vue';
+import Pop from '@/utils/Pop';
+import { computed, watch } from 'vue';
 
 
 
 const account = computed(() => AppState.account)
+const activeKeep = computed(() => AppState.activeKeep)
 
 const props = defineProps({
     keep: { type: Keep, required: true }
 })
 
 
-function setActiveKeep() {
-    keepsService.setActiveKeep(props.keep)
+
+async function setActiveKeep() {
+    try {
+        keepsService.setActiveKeep(props.keep)
+        activeKeep.value.views++
+    }
+    catch (error) {
+        Pop.error(error);
+    }
+
+}
+
+
+async function getKeepById() {
+    try {
+        const keepId = activeKeep.value.id
+        await keepsService.getKeepById(keepId)
+    }
+    catch (error) {
+        Pop.error(error);
+    }
 }
 
 </script>
