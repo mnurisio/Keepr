@@ -100,4 +100,19 @@ public class KeepsRepository
         if(rowsAffected > 1) throw new Exception("DELETE AFFECTED TOO MANY ROWS");
 
     }
+
+    internal void IncrementViews(Keep keep)
+    {
+        string sql = @"
+        UPDATE keeps
+        SET views = @Views
+        Where id = @Id
+        LIMIT 1;";
+
+        int rowsAffected = _db.Execute(sql, keep);
+
+        if(rowsAffected == 0) throw new Exception("INCREMENT DID NOT AFFECT ANY ROWS");
+        if(rowsAffected > 1) throw new Exception("INCREMENT AFFECTED TOO MANY ROWS");
+
+    }
 }
