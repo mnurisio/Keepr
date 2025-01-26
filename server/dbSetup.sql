@@ -10,6 +10,16 @@ CREATE TABLE IF NOT EXISTS accounts(
 ALTER TABLE accounts ADD COLUMN cover_img TEXT
 
 
+CREATE VIEW profile_view AS
+SELECT
+accounts.id,
+accounts.cover_img,
+accounts.`createdAt`,
+accounts.name,
+accounts.picture,
+accounts.`updatedAt`
+FROM accounts
+
 CREATE TABLE keeps(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
