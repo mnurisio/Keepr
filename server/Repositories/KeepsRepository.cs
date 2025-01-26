@@ -86,18 +86,18 @@ public class KeepsRepository
 
         int rowsAffected = _db.Execute(sql, updateData);
 
-        if(rowsAffected == 0) throw new Exception("UPDATE DID NOT AFFECT ANY ROWS");
-        if(rowsAffected > 1) throw new Exception("UPDATE AFFECTED TOO MANY ROWS");
+        if (rowsAffected == 0) throw new Exception("UPDATE DID NOT AFFECT ANY ROWS");
+        if (rowsAffected > 1) throw new Exception("UPDATE AFFECTED TOO MANY ROWS");
     }
 
     internal void DeleteKeep(int keepId)
     {
         string sql = @"DELETE FROM keeps WHERE id = @keepId LIMIT 1;";
 
-        int rowsAffected = _db.Execute(sql, new {keepId});
+        int rowsAffected = _db.Execute(sql, new { keepId });
 
-        if(rowsAffected == 0) throw new Exception("DELETE DID NOT AFFECT ANY ROWS");
-        if(rowsAffected > 1) throw new Exception("DELETE AFFECTED TOO MANY ROWS");
+        if (rowsAffected == 0) throw new Exception("DELETE DID NOT AFFECT ANY ROWS");
+        if (rowsAffected > 1) throw new Exception("DELETE AFFECTED TOO MANY ROWS");
 
     }
 
@@ -111,8 +111,27 @@ public class KeepsRepository
 
         int rowsAffected = _db.Execute(sql, keep);
 
-        if(rowsAffected == 0) throw new Exception("INCREMENT DID NOT AFFECT ANY ROWS");
-        if(rowsAffected > 1) throw new Exception("INCREMENT AFFECTED TOO MANY ROWS");
+        if (rowsAffected == 0) throw new Exception("INCREMENT DID NOT AFFECT ANY ROWS");
+        if (rowsAffected > 1) throw new Exception("INCREMENT AFFECTED TOO MANY ROWS");
 
+    }
+
+    internal List<Keep> GetProfileKeeps(string profileId)
+    {
+        string sql = @"
+        SELECT
+        keeps.*,
+        profile_view.*
+        FROM keeps
+        JOIN profile_view ON profile_view.id = keeps.creator_id
+        WHERE profile_view.id = @profileId;";
+
+        List<Keep> keeps = _db.Query(sql, (Keep keeps, Profile account) =>
+        {
+            keeps.Creator = account;
+            return keeps;
+        }, new {profileId}).ToList();
+
+        return keeps;
     }
 }

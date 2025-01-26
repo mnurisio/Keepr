@@ -1,6 +1,7 @@
 
 
 
+
 namespace keepr.Services;
 
 
@@ -73,5 +74,11 @@ public class KeepsService
 
         return $"Deleted Keep name: {keep.Name}";
 
+    }
+
+    internal List<Keep> GetProfileKeeps(string profileId)
+    {
+        List<Keep> keeps = _repository.GetProfileKeeps(profileId);
+        return keeps;
     }
 }

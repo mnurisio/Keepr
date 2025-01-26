@@ -20,6 +20,14 @@ accounts.picture,
 accounts.`updatedAt`
 FROM accounts
 
+
+SELECT
+keeps.*,
+profile_view.*
+FROM keeps
+JOIN profile_view ON profile_view.id = keeps.creator_id
+WHERE profile_view.id = @profileId
+
 CREATE TABLE keeps(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
