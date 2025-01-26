@@ -6,5 +6,5 @@ public class Profile : RepoItem<string>
 {
     public string Name { get; set; }
     [Url] public string Picture { get; set; }
-    [Url] public string CoverImg { get; set; }
+    [Url, MaxLength(1000)] public string CoverImg { get; set; }
 }

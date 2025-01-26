@@ -21,6 +21,9 @@ accounts.`updatedAt`
 FROM accounts
 
 
+SELECT * FROM profile_view WHERE id = '673faac60ee76bc126981172'
+
+
 SELECT
 keeps.*,
 profile_view.*
