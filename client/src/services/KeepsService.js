@@ -4,7 +4,6 @@ import { AppState } from "@/AppState.js"
 import { Keep } from "@/models/Keep.js"
 
 class KeepsService {
-
     async DeleteKeep(keepId) {
         const response = await api.delete(`api/keeps/${keepId}`)
         logger.log('deleting keep', response.data)

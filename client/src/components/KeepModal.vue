@@ -1,13 +1,14 @@
 <script setup>
 import { AppState } from '@/AppState';
 import { Keep } from '@/models/Keep';
+import { Modal } from 'bootstrap';
 import { computed } from 'vue';
 
 
 
 
 const keep = computed(() => AppState.activeKeep)
-
+const account = computed(() => AppState.account)
 
 
 </script>
@@ -41,9 +42,17 @@ const keep = computed(() => AppState.activeKeep)
                                 hello
                             </div>
                             <div class="col-md-6 text-end">
-                                <div class="p-2">
+                                <div v-if="account.id != keep.creatorId" class="p-2">
                                     <img :src="keep.creator.picture" :alt="keep.creator.name" class="profile-pic me-2">
-                                    <span>{{ keep.creator.name }}</span>
+                                    <router-link :to="{name: 'Profile', params: {profileId: keep.creatorId}}" >
+                                        <span class="profile-name-button" role="button" @click="Modal.getInstance('#keepModal').hide()">{{ keep.creator.name }}</span>
+                                    </router-link>
+                                </div>
+                                <div v-else class="p-2">
+                                    <img :src="keep.creator.picture" :alt="keep.creator.name" class="profile-pic me-2">
+                                    <router-link :to="{name: 'Account'}" >
+                                        <span class="profile-name-button" role="button" @click="Modal.getInstance('#keepModal').hide()">{{ keep.creator.name }}</span>
+                                    </router-link>
                                 </div>
                             </div>
                         </div>
@@ -75,5 +84,12 @@ img {
     aspect-ratio: 1/1;
     border-radius: 50%;
     height:2.5em;
+}
+
+.profile-name-button:hover{
+    text-decoration: underline;
+}
+.profile-name-button{
+    color:black;
 }
 </style>
