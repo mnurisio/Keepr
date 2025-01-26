@@ -44,6 +44,7 @@ class KeepsService {
 
 
     async getAllKeeps() {
+        AppState.keeps = []
         const response = await api.get('api/keeps')
         logger.log('got all keeps', response.data)
         AppState.keeps = response.data.map(pojo => new Keep(pojo))

@@ -95,6 +95,13 @@ async function getProfileKeeps() {
             </div>
         </section>
     </div>
+    <div v-else class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Loading... <i class="mdi mdi-loading mdi-spin"></i></h2>
+            </div>
+        </div>
+    </div>
 </template>
 
 

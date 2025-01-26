@@ -41,7 +41,7 @@ async function getKeepById() {
 async function DeleteKeep(keepId) {
     try {
         const confirm = await Pop.confirm("Are you sure you want to delete this keep?")
-        if(!confirm) return
+        if (!confirm) return
         await keepsService.DeleteKeep(keepId)
     }
     catch (error) {
@@ -65,26 +65,30 @@ async function DeleteKeep(keepId) {
                 <div class="keep-name col-6">
                     {{ keep.name }}
                 </div>
-                <div class="col-6">
-                    <img :src="keep.creator.picture" :alt="keep.name" class="profile-pic">
-                </div>
             </div>
         </div>
-        </div>
+    </div>
+    <div v-if="account?.id != keep.creatorId" class="col-6">
+        <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
+            <img :src="keep.creator.picture" :alt="keep.name" class="profile-pic">
+        </router-link>
+    </div>
+    <div v-else class="col-6">
+        <router-link :to="{ name: 'Account' }">
+            <img :src="keep.creator.picture" :alt="keep.name" class="profile-pic">
+        </router-link>
+    </div>
 </template>
 
 
 <style lang="scss" scoped>
-
-
 .keep-img {
     width: 100%;
     object-fit: cover;
-    object-position:  center;
+    object-position: center;
     border-radius: 10px;
     box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%)
-    
 }
 
 
@@ -112,31 +116,33 @@ async function DeleteKeep(keepId) {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        
+
     }
 }
-@media (max-width: 768px){
+
+@media (max-width: 768px) {
     .profile-pic {
         display: none;
     }
 }
-@media (min-width: 768px){
+
+@media (min-width: 768px) {
     .profile-pic {
         position: absolute;
         left: 85%;
         top: calc(100% - 60px);
         aspect-ratio: 1/1;
         border-radius: 50%;
-        height:3em;
+        height: 3em;
     }
 }
 
 .keep-card {
     box-shadow: 5px 5px -3px rgba(0, 0, 0, 0.329);
-    
+
 }
 
-@media (min-width: 768px){
+@media (min-width: 768px) {
     button {
         position: absolute;
         left: 94%;
@@ -146,7 +152,8 @@ async function DeleteKeep(keepId) {
         background-color: rgb(182, 0, 0) !important
     }
 }
-@media (max-width: 768px){
+
+@media (max-width: 768px) {
     button {
         position: absolute;
         left: 138px;

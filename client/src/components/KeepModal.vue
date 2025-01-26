@@ -42,7 +42,7 @@ const account = computed(() => AppState.account)
                                 hello
                             </div>
                             <div class="col-md-6 text-end">
-                                <div v-if="account.id != keep.creatorId" class="">
+                                <div v-if="account?.id != keep.creatorId" class="">
                                     <img :src="keep.creator.picture" :alt="keep.creator.name" class="profile-pic me-2">
                                     <router-link :to="{name: 'Profile', params: {profileId: keep.creatorId}}" >
                                         <span class="profile-name-button" role="button" @click="Modal.getInstance('#keepModal').hide()">{{ keep.creator.name }}</span>

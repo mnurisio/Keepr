@@ -11,12 +11,13 @@ defineProps({
 
 
 <template>
-        <div :style="{backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%), url(${vault.img})`}" class="vault-image d-flex align-items-end p-3">
+    <router-link :to="{name: 'Vault', params: {vaultId: vault.id}}">
+        <div v-if="vault.isPrivate == false" :style="{backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%), url(${vault.img})`}" class="vault-image d-flex align-items-end p-3">
             <div class="row w-100 vault-row">
                 <span class="vault-name marko-one">{{ vault.name }}</span>
             </div>
         </div>
-
+    </router-link>
 </template>
 
 
