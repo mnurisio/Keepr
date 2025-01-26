@@ -1,5 +1,6 @@
 
 
+
 namespace keepr.Services;
 
 public class VaultsService{
@@ -51,5 +52,11 @@ public class VaultsService{
 
         return $"Deleted vault: {vault.Name}";
 
+    }
+
+    internal List<Vault> GetProfileVaults(string profileId)
+    {
+        List<Vault> vaults = _repository.GetProfileVaults(profileId);
+        return vaults.FindAll(vault => vault.CreatorId == profileId && vault.IsPrivate == false);
     }
 }

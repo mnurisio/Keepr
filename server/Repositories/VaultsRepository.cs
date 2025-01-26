@@ -1,6 +1,7 @@
 
 
 
+
 namespace keepr.Repositories;
 
 
@@ -78,6 +79,25 @@ public class VaultsRepository
 
         if (rowsAffected == 0) throw new Exception("DELETE DID NOT AFFECT ANY ROWS");
         if (rowsAffected > 1) throw new Exception("DELETE AFFECTED TOO MANY ROWS");
+    }
+
+    internal List<Vault> GetProfileVaults(string profileId)
+    {
+        string sql = @"
+        SELECT
+        vaults.*,
+        profile_view.*
+        FROM vaults
+        JOIN profile_view ON profile_view.id = vaults.creator_id
+        WHERE profile_view.id = @profileId;";
+
+        List<Vault> vaults = _db.Query(sql, (Vault vaults, Profile account) =>
+        {
+            vaults.Creator = account;
+            return vaults;
+        }, new {profileId}).ToList();
+
+        return vaults;
     }
 }
 
