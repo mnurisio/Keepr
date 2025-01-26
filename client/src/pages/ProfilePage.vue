@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState';
+import { keepsService } from '@/services/KeepsService';
 import { profilesService } from '@/services/ProfilesService';
 import { vaultsService } from '@/services/VaultsService';
 import Pop from '@/utils/Pop';
@@ -17,7 +18,10 @@ const route = useRoute()
 watch(route, () => {
     getProfileById()
     getProfileVaults()
+    getProfileKeeps()
 }, { immediate: true })
+
+
 
 async function getProfileById() {
     try {
@@ -40,6 +44,17 @@ async function getProfileVaults() {
     }
 }
 
+async function getProfileKeeps() {
+    try {
+        const profileId = route.params.profileId
+        await keepsService.getProfileKeeps(profileId)
+
+    }
+    catch (error) {
+        Pop.error(error);
+    }
+}
+
 </script>
 
 
@@ -52,8 +67,8 @@ async function getProfileVaults() {
                     <img class="profilePicture" :src="profile.picture" :alt="profile.name">
                 </div>
                 <div class="text-center fs-1 oxygen-bold">{{ profile.name }}</div>
-                <div>
-                    {{ profileVaults.length}} Vaults
+                <div class="text-center oxygen-light">
+                    {{ profileVaults.length }} Vaults | {{ keeps.length }} Keeps
                 </div>
             </div>
         </section>

@@ -4,6 +4,14 @@ import { AppState } from "@/AppState.js"
 import { Keep } from "@/models/Keep.js"
 
 class KeepsService {
+
+   async getProfileKeeps(profileId) {
+    AppState.activeProfileKeeps = []
+    const response = await api.get(`api/profiles/${profileId}/keeps`)
+    logger.log('getting keeps by profile Id', response.data)
+    const keeps = response.data.map(pojo => new Keep(pojo))
+    AppState.activeProfileKeeps = keeps
+    }
     async DeleteKeep(keepId) {
         const response = await api.delete(`api/keeps/${keepId}`)
         logger.log('deleting keep', response.data)
