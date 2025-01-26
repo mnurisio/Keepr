@@ -5,7 +5,14 @@ import { Keep } from "@/models/Keep.js"
 
 class KeepsService {
 
-   async createKeep(keepData) {
+    async DeleteKeep(keepId) {
+        const response = await api.delete(`api/keeps/${keepId}`)
+        logger.log('deleting keep', response.data)
+        const keepToDelete = AppState.keeps.findIndex(keep => keep.id == keepId)
+        AppState.keeps.splice(keepToDelete, 1)
+    }
+
+    async createKeep(keepData) {
         const response = await api.post('api/keeps', keepData)
         logger.log('creating keep', response.data)
         const keep = new Keep(response.data)

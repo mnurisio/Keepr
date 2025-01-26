@@ -38,18 +38,29 @@ async function getKeepById() {
     }
 }
 
+async function DeleteKeep(keepId) {
+    try {
+        const confirm = await Pop.confirm("Are you sure you want to delete this keep?")
+        if(!confirm) return
+        await keepsService.DeleteKeep(keepId)
+    }
+    catch (error) {
+        Pop.error(error);
+    }
+}
+
 </script>
 
 
 <template>
+    <div v-if="keep.creatorId == account?.id">
+        <button @click="DeleteKeep(keep.id)" title="Delete Keep" class="btn btn-danger">
+            <i class="mdi mdi-close"></i>
+        </button>
+    </div>
     <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal" class="keep-card">
         <img :src="keep.img" :alt="keep.name" class="keep-img">
         <div class="d-flex flex-column justify-content-between">
-            <div>
-                <div v-if="keep.creatorId == account?.id">
-                    <button title="Delete Keep" class="btn btn-danger"><i class="mdi mdi-close"></i></button>
-                </div>
-            </div>
             <div>
                 <div class="keep-name">
                     {{ keep.name }}
@@ -75,15 +86,28 @@ async function getKeepById() {
     top: 20px;
 }
 
-.keep-card{
+.keep-card {
     box-shadow: 5px 5px -3px rgba(0, 0, 0, 0.329)
 }
 
-button {
-    position: absolute;
-    left: 184px;
-    top: -20px;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
+@media (min-width: 768px){
+    button {
+        position: absolute;
+        left: 395px;
+        top: -18px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: rgb(182, 0, 0) !important
+    }
+}
+@media (max-width: 768px){
+    button {
+        position: absolute;
+        left: 138px;
+        top: -18px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: rgb(182, 0, 0) !important
+    }
 }
 </style>
