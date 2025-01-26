@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS accounts(
 
 ALTER TABLE accounts ADD COLUMN cover_img TEXT
 
+ALTER TABLE accounts DROP COLUMN cover_img
+
 
 CREATE VIEW profile_view AS
 SELECT

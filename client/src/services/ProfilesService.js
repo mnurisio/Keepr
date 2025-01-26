@@ -12,7 +12,6 @@ class ProfilesService{
         logger.log('getting profile by Id', response.data)
         const profile = new Profile(response.data)
         AppState.activeProfile = profile
-        
     }
 
 
