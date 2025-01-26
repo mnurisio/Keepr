@@ -61,12 +61,14 @@ async function DeleteKeep(keepId) {
     <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal" class="keep-card">
         <img :src="keep.img" :alt="keep.name" class="keep-img">
         <div class="marko-one text-text">
-            <div>
-                <div class="keep-name">
+            <div class="row keep-row">
+                <div class="keep-name col-6">
                     {{ keep.name }}
                 </div>
-                <div >
-                    <img :src="keep.creator.picture" :alt="keep.name" class="profile-pic">
+                <div class="col-6">
+
+                        <img :src="keep.creator.picture" :alt="keep.name" class="profile-pic">
+
                 </div>
             </div>
         </div>
@@ -84,6 +86,10 @@ async function DeleteKeep(keepId) {
     border-radius: 10px;
     box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
     
+}
+
+.keep-row{
+    position: absolute;
 }
 
 @media (min-width: 768px){
