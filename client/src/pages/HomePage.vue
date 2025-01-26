@@ -51,6 +51,7 @@ async function getAllKeeps() {
       break-inside: avoid;
       display: inline-block;
       position: relative;
+  
     }
   }
 }

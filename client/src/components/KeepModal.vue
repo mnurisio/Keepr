@@ -18,7 +18,7 @@ const account = computed(() => AppState.account)
     <div class="container-fluid modal fade" id="keepModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div v-if="keep" class="modal-content">
-                <div class="row w-100 h-100">
+                <div class="row">
                     <div class="col-md-6 p-0">
                         <img class="img-fluid w-100 h-100" :src="keep.img" :alt="keep.name">
                     </div>
@@ -37,18 +37,18 @@ const account = computed(() => AppState.account)
                                 <p>{{ keep.description }}</p>
                             </div>
                         </div>
-                        <div class="row ps-5">
+                        <div class="row">
                             <div class="col-md-6">
                                 hello
                             </div>
                             <div class="col-md-6 text-end">
-                                <div v-if="account.id != keep.creatorId" class="p-2">
+                                <div v-if="account.id != keep.creatorId" class="">
                                     <img :src="keep.creator.picture" :alt="keep.creator.name" class="profile-pic me-2">
                                     <router-link :to="{name: 'Profile', params: {profileId: keep.creatorId}}" >
                                         <span class="profile-name-button" role="button" @click="Modal.getInstance('#keepModal').hide()">{{ keep.creator.name }}</span>
                                     </router-link>
                                 </div>
-                                <div v-else class="p-2">
+                                <div v-else class="">
                                     <img :src="keep.creator.picture" :alt="keep.creator.name" class="profile-pic me-2">
                                     <router-link :to="{name: 'Account'}" >
                                         <span class="profile-name-button" role="button" @click="Modal.getInstance('#keepModal').hide()">{{ keep.creator.name }}</span>

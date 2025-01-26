@@ -7,6 +7,7 @@ import { vaultsService } from '@/services/VaultsService';
 import Pop from '@/utils/Pop';
 import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import ProfileKeepCard from '@/components/ProfileKeepCard.vue';
 
 
 const profile = computed(() => AppState.activeProfile)
@@ -78,17 +79,19 @@ async function getProfileKeeps() {
                 Vaults
             </div>
             <div class="row mb-2">
-                    <div v-for="vault in vaults" :key="vault.id" class=" mb-3 col-md-3">
-                        <VaultCard :vault="vault"/>
-                    </div>
+                <div v-for="vault in vaults" :key="vault.id" class=" mb-3 col-md-3">
+                    <VaultCard :vault="vault" />
+                </div>
             </div>
             <div class="oxygen-bold fs-1 mb-2">
                 Keeps
             </div>
             <div class="row mb-2">
-                    <div v-for="keep in keeps" :key="keep.id" class=" mb-3 col-md-3">
-                        <KeepCard :keep="keep"/>
+                <div class="masonry-container">
+                    <div v-for="keep in keeps" :key="keep.id" class="mb-3 masonry-object">
+                        <ProfileKeepCard :keep="keep" />
                     </div>
+                </div>
             </div>
         </section>
     </div>
@@ -106,5 +109,37 @@ async function getProfileKeeps() {
 .heroImg {
     background-size: cover;
     height: 20em
+}
+
+@media(min-width: 768px) {
+
+    .masonry-container {
+        columns: 235px;
+        column-gap: 2rem;
+        row-gap: 2rem;
+        width: 100%;
+
+
+        .masonry-object {
+            break-inside: avoid;
+            display: inline-block;
+            position: relative;
+        }
+    }
+}
+
+@media(max-width: 768px) {
+
+    .masonry-container {
+        columns: 150px;
+        width: 100%;
+
+
+        .masonry-object {
+            break-inside: avoid;
+            display: inline-block;
+            position: relative;
+        }
+    }
 }
 </style>
