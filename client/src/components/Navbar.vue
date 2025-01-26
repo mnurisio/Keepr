@@ -29,17 +29,22 @@ function toggleTheme() {
         </div>
       </router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-between" id="navbarText">
-      <CreateDropdown />
-      <!-- LOGIN COMPONENT HERE -->
-      <Login />
-    </div>
-  </nav>
-</div>
-
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarText">
+        <CreateDropdown />
+        <!-- LOGIN COMPONENT HERE -->
+        <Login />
+      </div>
+    </nav>
+  </div>
+  <ModalWrapper modalId="createKeepModal" modalTitle="Create New Keep">
+    <CreateKeepForm />
+  </ModalWrapper>
+  <ModalWrapper modalId="createVaultModal" modalTitle="Create New Vault">
+    <CreateVaultForm />
+  </ModalWrapper>
 </template>
 
 <style scoped>
@@ -57,8 +62,9 @@ a:hover {
   border-bottom-right-radius: 0;
 }
 
-.navbar-border{
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.425);;
+.navbar-border {
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.425);
+  ;
 }
 
 @media screen and (min-width: 576px) {

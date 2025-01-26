@@ -4,13 +4,20 @@ import { AppState } from "@/AppState.js"
 import { Keep } from "@/models/Keep.js"
 
 class KeepsService {
-   async getKeepById(keepId) {
+
+   async createKeep(keepData) {
+        const response = await api.post('api/keeps', keepData)
+        logger.log('creating keep', response.data)
+        const keep = new Keep(response.data)
+        AppState.keeps.push(keep)
+    }
+    async getKeepById(keepId) {
         const response = await api.get(`api/keeps/${keepId}`)
         logger.log('got keep by Id', response.data)
         AppState.activeKeep = response.data
     }
 
-   async IncrementKeeps(keepId, viewData) {
+    async IncrementKeeps(keepId, viewData) {
         const response = await api.put(`api/keeps/${keepId}`, viewData)
         AppState.activeKeep.views = response
     }
@@ -18,7 +25,7 @@ class KeepsService {
 
     setActiveKeep(keep) {
         AppState.activeKeep = keep
-        
+
     }
 
 
