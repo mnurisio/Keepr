@@ -42,7 +42,7 @@ async function getKeepById() {
 
 
 <template>
-    <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal">
+    <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal" class="keep-card">
         <img :src="keep.img" :alt="keep.name" class="keep-img">
         <div class="d-flex flex-column justify-content-between">
             <div>
@@ -73,6 +73,10 @@ async function getKeepById() {
     position: absolute;
     left: 25px;
     top: 20px;
+}
+
+.keep-card{
+    box-shadow: 5px 5px -3px rgba(0, 0, 0, 0.329)
 }
 
 button {
