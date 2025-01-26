@@ -6,11 +6,11 @@ import { Vault } from "@/models/Vault.js"
 class VaultsService{
 
    async getProfileVaults(profileId) {
-        AppState.vaults = []
+        AppState.profileVaults = []
         const response = await api.get(`api/profiles/${profileId}/vaults`)
         logger.log('getting vaults by profile Id', response.data)
         const vaults = response.data.map(pojo => new Vault(pojo))
-        AppState.vaults = vaults
+        AppState.profileVaults = vaults
     }
 
 }

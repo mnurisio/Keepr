@@ -10,7 +10,7 @@ import { useRoute } from 'vue-router';
 
 const profile = computed(() => AppState.activeProfile)
 const keeps = computed(() => AppState.activeProfileKeeps)
-const vaults = computed(() => AppState.vaults)
+const vaults = computed(() => AppState.profileVaults)
 const profileVaults = computed(() => vaults.value.filter(vault => vault.creatorId == profile.value?.id))
 
 const route = useRoute()
