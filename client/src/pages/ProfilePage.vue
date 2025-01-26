@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState';
+import VaultCard from '@/components/VaultCard.vue';
 import { keepsService } from '@/services/KeepsService';
 import { profilesService } from '@/services/ProfilesService';
 import { vaultsService } from '@/services/VaultsService';
@@ -62,7 +63,7 @@ async function getProfileKeeps() {
     <div v-if="profile" class="container">
         <section class="row heroImg justify-content-center align-items-center p-3"
             :style="{ backgroundImage: `url(${profile.coverImg})` }">
-            <div class="col-5">
+            <div class="col-md-5">
                 <div class="d-flex justify-content-center align-items-center">
                     <img class="profilePicture" :src="profile.picture" :alt="profile.name">
                 </div>
@@ -70,6 +71,24 @@ async function getProfileKeeps() {
                 <div class="text-center oxygen-light">
                     {{ profileVaults.length }} Vaults | {{ keeps.length }} Keeps
                 </div>
+            </div>
+        </section>
+        <section>
+            <div class="oxygen-bold fs-1 mb-2">
+                Vaults
+            </div>
+            <div class="row mb-2">
+                    <div v-for="vault in vaults" :key="vault.id" class=" mb-3 col-md-3">
+                        <VaultCard :vault="vault"/>
+                    </div>
+            </div>
+            <div class="oxygen-bold fs-1 mb-2">
+                Keeps
+            </div>
+            <div class="row mb-2">
+                    <div v-for="keep in keeps" :key="keep.id" class=" mb-3 col-md-3">
+                        <KeepCard :keep="keep"/>
+                    </div>
             </div>
         </section>
     </div>

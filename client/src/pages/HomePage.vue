@@ -1,6 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState';
-import HomePageKeepCard from '@/components/HomePageKeepCard.vue';
+import KeepCard from '@/components/KeepCard.vue';
 import { keepsService } from '@/services/KeepsService';
 import Pop from '@/utils/Pop';
 import { computed, onMounted } from 'vue';
@@ -30,7 +30,7 @@ async function getAllKeeps() {
   <div class="container-fluid">
     <div class="masonry-container p-5">
       <div v-for="keep in keeps" :key="keep.id" class="mb-3 masonry-object">
-        <HomePageKeepCard :keep="keep"/>
+        <KeepCard :keep="keep"/>
       </div>
     </div>
   </div>

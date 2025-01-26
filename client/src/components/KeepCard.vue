@@ -3,7 +3,7 @@ import { AppState } from '@/AppState';
 import { Keep } from '@/models/Keep';
 import { keepsService } from '@/services/KeepsService';
 import Pop from '@/utils/Pop';
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 
 
 
@@ -66,9 +66,7 @@ async function DeleteKeep(keepId) {
                     {{ keep.name }}
                 </div>
                 <div class="col-6">
-
                         <img :src="keep.creator.picture" :alt="keep.name" class="profile-pic">
-
                 </div>
             </div>
         </div>
@@ -85,6 +83,7 @@ async function DeleteKeep(keepId) {
     background-position: center;
     border-radius: 10px;
     box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    
     
 }
 
@@ -133,7 +132,8 @@ async function DeleteKeep(keepId) {
 }
 
 .keep-card {
-    box-shadow: 5px 5px -3px rgba(0, 0, 0, 0.329)
+    box-shadow: 5px 5px -3px rgba(0, 0, 0, 0.329);
+    
 }
 
 @media (min-width: 768px){
