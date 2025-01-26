@@ -42,6 +42,7 @@ async function getAllKeeps() {
   .masonry-container {
     columns: 400px;
     column-gap: 2rem;
+    row-gap: 2rem;
     width: 100%;
     
     

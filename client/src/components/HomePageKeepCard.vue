@@ -60,10 +60,13 @@ async function DeleteKeep(keepId) {
     </div>
     <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal" class="keep-card">
         <img :src="keep.img" :alt="keep.name" class="keep-img">
-        <div class="d-flex flex-column justify-content-between">
+        <div class="marko-one text-text">
             <div>
                 <div class="keep-name">
                     {{ keep.name }}
+                </div>
+                <div >
+                    <img :src="keep.creator.picture" :alt="keep.name" class="profile-pic">
                 </div>
             </div>
         </div>
@@ -72,18 +75,55 @@ async function DeleteKeep(keepId) {
 
 
 <style lang="scss" scoped>
+
+
 .keep-img {
     width: 100%;
     background-size: cover;
     background-position: center;
     border-radius: 10px;
     box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    
 }
 
-.keep-name {
-    position: absolute;
-    left: 25px;
-    top: 20px;
+@media (min-width: 768px){
+    .keep-name {
+        font-size: 23.59px;
+        position: absolute;
+        left: 5%;
+        top: 85%;
+        color: #F9F6FA;
+        text-shadow: 2px 2px 2px black;
+    }
+}
+@media (max-width: 768px){
+    .profile-pic {
+        position: absolute;
+        left: 72%;
+        top: 54%;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        height:2.5em;
+    }
+}
+@media (min-width: 768px){
+    .profile-pic {
+        position: absolute;
+        left: 88%;
+        top: 80%;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        height:2.5em;
+    }
+}
+@media (max-width: 768px){
+    .keep-name {
+        color: #F9F6FA;
+        text-shadow: 2px 2px 2px black;
+        position: absolute;
+        left: 5%;
+        top: 75%;
+    }
 }
 
 .keep-card {
@@ -93,8 +133,8 @@ async function DeleteKeep(keepId) {
 @media (min-width: 768px){
     button {
         position: absolute;
-        left: 395px;
-        top: -18px;
+        left: 95%;
+        top: -3%;
         aspect-ratio: 1/1;
         border-radius: 50%;
         background-color: rgb(182, 0, 0) !important
