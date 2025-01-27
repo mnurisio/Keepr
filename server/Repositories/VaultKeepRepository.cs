@@ -1,5 +1,6 @@
 
 
+
 namespace keepr.Repositories;
 
 public class VaultKeepRepository
@@ -56,4 +57,35 @@ public class VaultKeepRepository
 
         return vaultKeepKeeps;
     }
+
+    internal VaultKeep GetVaultKeepById(int vaultKeepId)
+    {
+        string sql = @"
+        SELECT
+        vault_keeps.*,
+        profile_view.*
+        FROM vault_keeps
+        JOIN profile_view ON profile_view.id = vault_keeps.creator_id
+        WHERE vault_keeps.id = @vaultKeepId;";
+
+        VaultKeep vaultKeep = _db.Query(sql, (VaultKeep vaultKeep, Profile account) =>
+        {
+            vaultKeep.CreatorId = account.Id;
+            return vaultKeep;
+        }, new { vaultKeepId }).SingleOrDefault();
+
+        return vaultKeep;
+    }
+
+
+    internal void DeleteVaultKeep(int vaultKeepId)
+    {
+        string sql = @"DELETE FROM vault_keeps WHERE vault_keeps.id = @VaultKeepId LIMIT 1;";
+
+        int rowsAffected = _db.Execute(sql, new { vaultKeepId });
+
+        if (rowsAffected == 0) throw new Exception("DELETE DID NOT AFFECT ANY ROWS");
+        if (rowsAffected > 1) throw new Exception("DELETE AFFECTED TOO MANY ROWS");
+    }
+
 }

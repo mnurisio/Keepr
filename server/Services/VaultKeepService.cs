@@ -28,9 +28,29 @@ public class VaultKeepService{
         List<VaultKeepKeep> keeps = _repository.GetKeepsInVault(vaultId);
 
         if(vault.CreatorId != userId && vault.IsPrivate == true) throw new Exception($"Invalid Vault ID: {vaultId}");
+        
 
         return keeps;
+    }
 
+    private VaultKeep GetVaultKeepById(int vaultKeepId){
 
+        VaultKeep vaultKeep = _repository.GetVaultKeepById(vaultKeepId);
+
+        if(vaultKeep == null) throw new Exception($"Invalid VaultKeep ID of {vaultKeepId}");
+
+        return vaultKeep;
+    }
+
+    internal string DeleteVaultKeep(int vaultKeepId, string userId)
+    {
+        VaultKeep vaultKeep = GetVaultKeepById(vaultKeepId);
+
+        if(vaultKeep.CreatorId != userId) throw new Exception("YOU CANNOT DELETE ANOTHER PERSON'S VAULT");
+
+        _repository.DeleteVaultKeep(vaultKeepId);
+        
+
+        return $"VaultKeep {vaultKeepId} has been deleted";
     }
 }

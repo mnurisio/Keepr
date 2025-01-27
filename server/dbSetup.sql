@@ -39,6 +39,13 @@ SELECT
 
 SELECT
         vault_keeps.*,
+        profile_view.*
+        FROM vault_keeps
+        JOIN profile_view ON profile_view.id = vault_keeps.creator_id
+        WHERE vault_keeps.id = 67
+
+SELECT
+        vault_keeps.*,
         keeps.*,
         profile_view.*
         FROM vault_keeps
