@@ -5,7 +5,13 @@ import { Vault } from "@/models/Vault.js"
 import { VaultKeep } from "@/models/VaultKeep.js"
 
 class VaultsService {
-  async  getVaultKeepsInVault(vaultId) {
+    async createVault(vaultData) {
+        const response = await api.post('api/vaults', vaultData)
+        logger.log('creating vault', response.data)
+        const vault = new Vault(response.data)
+        AppState.accountVaults.push(vault)
+    }
+    async getVaultKeepsInVault(vaultId) {
         const response = await api.get(`api/vaults/${vaultId}/keeps`)
         logger.log('getting vault keeps in vault', response.data)
         const vaultKeeps = response.data.map(pojo => new VaultKeep(pojo))

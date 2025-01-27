@@ -5,6 +5,7 @@ import Login from './Login.vue';
 import CreateDropdown from './CreateDropdown.vue';
 import ModalWrapper from './ModalWrapper.vue';
 import CreateKeepForm from './CreateKeepForm.vue';
+import CreateVaultForm from './CreateVaultForm.vue';
 
 const theme = ref(loadState('theme') || 'light')
 
