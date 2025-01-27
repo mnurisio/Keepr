@@ -34,12 +34,12 @@ async function createVault() {
     <form @submit.prevent="createVault()">
         <div class="form-floating mb-3">
             <input v-model="editableVaultData.name" type="text" class="form-control" id="name" placeholder="Title"
-                required>
+                required minlength="3" maxlength="15">
             <label for="name">Title...</label>
         </div>
         <div class="form-floating mb-3">
             <input v-model="editableVaultData.img" type="url" class="form-control" id="img" placeholder="Image URL..."
-                required>
+                required maxlength="1000">
             <label for="img">Image URL...</label>
         </div>
         <div class="text-end">Private vaults can only be seen by you</div>
