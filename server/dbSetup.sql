@@ -36,6 +36,16 @@ SELECT
         WHERE vault_keeps.id = 1
 
 
+
+SELECT
+        vault_keeps.*,
+        keeps.*,
+        profile_view.*
+        FROM vault_keeps
+        JOIN keeps ON keeps.id = vault_keeps.keep_id
+        JOIN profile_view ON profile_view.id = vault_keeps.creator_id
+        WHERE vault_keeps.vault_id = 94
+
 SELECT * FROM profile_view WHERE id = '673faac60ee76bc126981172'
 
 

@@ -21,8 +21,8 @@ public class VaultKeepsController : ControllerBase{
         {
             Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);     
             vaultKeepData.CreatorId = userInfo.Id;
-            VaultKeepKeep VaultKeepKeep = _vaultKeepService.CreateVaultKeep(vaultKeepData, userInfo.Id);
-            return Ok(VaultKeepKeep);
+            VaultKeep vaultKeep = _vaultKeepService.CreateVaultKeep(vaultKeepData, userInfo.Id);
+            return Ok(vaultKeep);
         }
         catch (Exception error)
         {

@@ -10,7 +10,7 @@ public class VaultKeepRepository
     }
     private readonly IDbConnection _db;
 
-    internal VaultKeepKeep CreateVaultKeep(VaultKeep vaultKeepData)
+    internal VaultKeep CreateVaultKeep(VaultKeep vaultKeepData)
     {
         string sql = @"
         INSERT INTO
@@ -19,44 +19,41 @@ public class VaultKeepRepository
         
         SELECT
         vault_keeps.*,
-        profile_view.*,
-        keeps.*
+        profile_view.*
         FROM vault_keeps
         JOIN profile_view ON profile_view.id = vault_keeps.creator_id
-        JOIN keeps ON keeps.id = vault_keeps.keep_id
         WHERE vault_keeps.id = LAST_INSERT_ID();";
 
-        VaultKeepKeep VaultKeepKeep = _db.Query(sql, (VaultKeep vaultKeep, VaultKeepProfile account, VaultKeepKeep keep) => 
+        VaultKeep vaultKeep = _db.Query(sql, (VaultKeep vaultKeep, VaultKeepProfile account) => 
         {
-            keep.CreatorId = account.Id;
-            keep.Creator = account;
-            keep.VaultKeepId = vaultKeep.Id;
-            keep.VaultId = vaultKeep.VaultId;
-            return keep;
+            vaultKeep.CreatorId = account.Id;
+            return vaultKeep;
         }, vaultKeepData).SingleOrDefault();
 
-        return VaultKeepKeep;
+        return vaultKeep;
     }
 
-    internal List<VaultKeepKeep> GetKeepsInPublicVault(int vaultId)
+    internal List<VaultKeepKeep> GetKeepsInVault(int vaultId)
     {
         string sql = @"
         SELECT
         vault_keeps.*,
         keeps.*,
-        accounts.*
+        profile_view.*
         FROM vault_keeps
         JOIN keeps ON keeps.id = vault_keeps.keep_id
-        JOIN accounts ON accounts.id = vault_keeps.creator_id
-        WHERE vault_keeps.vault_id = @vaultId
+        JOIN profile_view ON profile_view.id = vault_keeps.creator_id
+        WHERE vault_keeps.vault_id = @VaultId
         ;";
 
-        List<VaultKeepKeep> keeps = _db.Query(sql, (VaultKeepKeep vaultKeep, Keep keep, Profile account) =>
+        List<VaultKeepKeep> vaultKeepKeeps = _db.Query(sql, (VaultKeep vaultKeep, VaultKeepKeep keep, VaultKeepProfile account) =>
         {   
-            vaultKeep.Creator = account;
-            return vaultKeep;
+            keep.VaultKeepId = vaultKeep.Id;
+            keep.VaultId = vaultKeep.VaultId;
+            keep.Creator = account;
+            return keep;
         }, new {vaultId}).ToList();
 
-        return keeps;
+        return vaultKeepKeeps;
     }
 }
