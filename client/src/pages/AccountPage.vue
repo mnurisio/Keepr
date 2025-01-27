@@ -8,18 +8,19 @@ import { profilesService } from '@/services/ProfilesService.js';
 import { useRoute } from 'vue-router';
 import { vaultsService } from '@/services/VaultsService.js';
 import { keepsService } from '@/services/KeepsService.js';
+import { accountService } from '@/services/AccountService.js';
 
 const account = computed(() => AppState.account)
 const profile = computed(() => AppState.activeProfile)
 const keeps = computed(() => AppState.activeProfileKeeps)
-const vaults = computed(() => AppState.profileVaults)
+const vaults = computed(() => AppState.accountVaults)
 const profileVaults = computed(() => vaults.value.filter(vault => vault.creatorId == profile.value?.id))
 
 const route = useRoute()
 
 watch(route, () => {
     getProfileById()
-    getProfileVaults()
+    getMyVaults()
     getProfileKeeps()
 }, { immediate: true })
 
@@ -31,6 +32,15 @@ async function getProfileById() {
     catch (error) {
         Pop.error(error);
     }
+}
+
+async function getMyVaults(){
+  try {
+    await vaultsService.getMyVaults()
+  }
+  catch (error){
+    Pop.error(error);
+  }
 }
 
 async function getProfileVaults() {

@@ -1,7 +1,9 @@
 <script setup>
+import { AppState } from '@/AppState';
 import { Vault } from '@/models/Vault';
+import { computed } from 'vue';
 
-
+const account = computed(() => AppState.account)
 
 defineProps({
     vault: {type: Vault, required: true}
@@ -11,13 +13,24 @@ defineProps({
 
 
 <template>
-    <router-link :to="{name: 'Vault', params: {vaultId: vault.id}}">
-        <div v-if="vault.isPrivate == false" :style="{backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%), url(${vault.img})`}" class="vault-image d-flex align-items-end p-3">
-            <div class="row w-100 vault-row">
-                <span class="vault-name marko-one">{{ vault.name }}</span>
+    <div v-if="vault.isPrivate == false && vault.creatorId == account.id">
+        <router-link :to="{name: 'Vault', params: {vaultId: vault.id}}">
+            <div :style="{backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%), url(${vault.img})`}" class="vault-image d-flex align-items-end p-3">
+                <div class="row w-100 vault-row">
+                    <span class="vault-name marko-one">{{ vault.name }}</span>
+                </div>
             </div>
-        </div>
-    </router-link>
+        </router-link>
+    </div>
+    <div v-else>
+        <router-link :to="{name: 'Vault', params: {vaultId: vault.id}}">
+            <div :style="{backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 100%, rgba(0, 0, 0, 1.0) 100%), url(${vault.img})`}" class="vault-image d-flex align-items-end p-3">
+                <div class="row w-100 vault-row">
+                    <span class="vault-name marko-one">PRIVATE <i class="mdi mdi-lock"></i></span>
+                </div>
+            </div>
+        </router-link>
+    </div>
 </template>
 
 
