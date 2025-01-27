@@ -19,6 +19,7 @@ const props = defineProps({
 async function setActiveKeep() {
     try {
         keepsService.setActiveKeep(props.keep)
+        await keepsService.getKeepById(activeKeep.value.id)
         activeKeep.value.views++
     }
     catch (error) {
@@ -28,15 +29,6 @@ async function setActiveKeep() {
 }
 
 
-async function getKeepById() {
-    try {
-        const keepId = activeKeep.value.id
-        await keepsService.getKeepById(keepId)
-    }
-    catch (error) {
-        Pop.error(error);
-    }
-}
 
 async function DeleteKeep(keepId) {
     try {

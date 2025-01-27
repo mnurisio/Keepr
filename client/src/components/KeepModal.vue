@@ -3,6 +3,7 @@ import { AppState } from '@/AppState';
 import { Keep } from '@/models/Keep';
 import { Modal } from 'bootstrap';
 import { computed } from 'vue';
+import MyVaultDropdown from './MyVaultDropdown.vue';
 
 
 
@@ -17,7 +18,7 @@ const account = computed(() => AppState.account)
 <template>
     <div class="container-fluid modal fade" id="keepModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
-            <div v-if="keep" class="modal-content">
+            <div v-if="keep" class="modal-content container-fluid">
                 <div class="row">
                     <div class="col-md-6 p-0">
                         <img class="img-fluid w-100 h-100" :src="keep.img" :alt="keep.name">
@@ -38,17 +39,20 @@ const account = computed(() => AppState.account)
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
-                                hello
+                            <div class="col-md-4 ms-2">
+                                <MyVaultDropdown />
                             </div>
-                            <div class="col-md-6 text-end">
-                                <div v-if="account?.id != keep.creatorId" class="">
+                            <div class="col-md-3">
+                                <button form="vaultKeep-submit">Save</button>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <div v-if="account?.id != keep.creatorId">
                                     <img :src="keep.creator.picture" :alt="keep.creator.name" class="profile-pic me-2">
                                     <router-link :to="{name: 'Profile', params: {profileId: keep.creatorId}}" >
                                         <span class="profile-name-button" role="button" @click="Modal.getInstance('#keepModal').hide()">{{ keep.creator.name }}</span>
                                     </router-link>
                                 </div>
-                                <div v-else class="">
+                                <div v-else>
                                     <img :src="keep.creator.picture" :alt="keep.creator.name" class="profile-pic me-2">
                                     <router-link :to="{name: 'Account'}" >
                                         <span class="profile-name-button" role="button" @click="Modal.getInstance('#keepModal').hide()">{{ keep.creator.name }}</span>
