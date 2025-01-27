@@ -10,7 +10,7 @@ public class VaultKeepRepository
     }
     private readonly IDbConnection _db;
 
-    internal VaultKeep CreateVaultKeep(VaultKeep vaultKeepData)
+    internal VaultKeepKeep CreateVaultKeep(VaultKeep vaultKeepData)
     {
         string sql = @"
         INSERT INTO
@@ -18,13 +18,24 @@ public class VaultKeepRepository
         VALUES(@KeepId, @VaultId, @CreatorId);
         
         SELECT
-        vault_keeps.*
+        vault_keeps.*,
+        profile_view.*,
+        keeps.*
         FROM vault_keeps
+        JOIN profile_view ON profile_view.id = vault_keeps.creator_id
+        JOIN keeps ON keeps.id = vault_keeps.keep_id
         WHERE vault_keeps.id = LAST_INSERT_ID();";
 
-        VaultKeep VaultKeep = _db.Query<VaultKeep>(sql, vaultKeepData).SingleOrDefault();
+        VaultKeepKeep VaultKeepKeep = _db.Query(sql, (VaultKeep vaultKeep, VaultKeepProfile account, VaultKeepKeep keep) => 
+        {
+            keep.CreatorId = account.Id;
+            keep.Creator = account;
+            keep.VaultKeepId = vaultKeep.Id;
+            keep.VaultId = vaultKeep.VaultId;
+            return keep;
+        }, vaultKeepData).SingleOrDefault();
 
-        return VaultKeep;
+        return VaultKeepKeep;
     }
 
     internal List<VaultKeepKeep> GetKeepsInPublicVault(int vaultId)

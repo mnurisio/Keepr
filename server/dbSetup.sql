@@ -13,10 +13,6 @@ ALTER TABLE accounts DROP COLUMN cover_img
 
 
 CREATE VIEW profile_view AS
-
-
-
-
 SELECT
 accounts.id,
 accounts.cover_img,
@@ -25,6 +21,19 @@ accounts.name,
 accounts.picture,
 accounts.`updatedAt`
 FROM accounts
+
+
+
+SELECT
+        vault_keeps.*,
+        profile_view.*,
+        keeps.*,
+        vaults.*
+        FROM vault_keeps
+        JOIN profile_view ON profile_view.id = vault_keeps.creator_id
+        JOIN keeps ON keeps.id = vault_keeps.keep_id
+        JOIN vaults ON vaults.id = vault_keeps.vault_id
+        WHERE vault_keeps.id = 1
 
 
 SELECT * FROM profile_view WHERE id = '673faac60ee76bc126981172'

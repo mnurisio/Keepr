@@ -11,14 +11,14 @@ public class VaultKeepService{
     private readonly VaultKeepRepository _repository;
     private readonly VaultsService _vaultsService;
 
-    internal VaultKeep CreateVaultKeep(VaultKeep vaultKeepData, string userId)
+    internal VaultKeepKeep CreateVaultKeep(VaultKeep vaultKeepData, string userId)
     {
-        Vault Vault = _vaultsService.GetVaultById(vaultKeepData.VaultId, userId);
-        VaultKeep VaultKeep = _repository.CreateVaultKeep(vaultKeepData);
+        Vault vault = _vaultsService.GetVaultById(vaultKeepData.VaultId, userId);
+        VaultKeepKeep VaultKeepKeep = _repository.CreateVaultKeep(vaultKeepData);
 
-        if(VaultKeep.CreatorId != Vault.CreatorId) throw new Exception("YOU CANNOT CREATE A VAULTKEEP FOR SOMEONE ELSE VAULT");
+        if(VaultKeepKeep.CreatorId != vault.CreatorId) throw new Exception("YOU CANNOT CREATE A VAULTKEEP FOR SOMEONE ELSE VAULT");
 
-        return VaultKeep;
+        return VaultKeepKeep;
     }
 
     internal List<VaultKeepKeep> GetKeepsInPublicVault(int vaultId, string userId)
