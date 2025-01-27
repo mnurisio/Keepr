@@ -13,7 +13,7 @@ defineProps({
 
 
 <template>
-    <div v-if="vault.isPrivate == false && vault.creatorId == account.id">
+    <div v-if="vault.isPrivate == false">
         <router-link :to="{name: 'Vault', params: {vaultId: vault.id}}">
             <div :style="{backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%), url(${vault.img})`}" class="vault-image d-flex align-items-end p-3">
                 <div class="row w-100 vault-row">
