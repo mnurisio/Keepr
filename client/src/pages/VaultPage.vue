@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState';
+import { vaultKeepService } from '@/services/VaultKeepService';
 import { vaultsService } from '@/services/VaultsService';
 import Pop from '@/utils/Pop';
 import { AxiosError } from 'axios';
@@ -9,7 +10,6 @@ import { useRoute, useRouter } from 'vue-router';
 
 
 const vault = computed(() => AppState.activeVault)
-const account = computed(() => AppState.account)
 
 
 const route = useRoute()
@@ -18,16 +18,27 @@ const router = useRouter()
 
 watch(route, () => {
     getVaultById()
+    getVaultKeepsInVault()
 }, { immediate: true })
 
 async function getVaultById() {
     try {
         const vaultId = route.params.vaultId
         await vaultsService.getVaultById(vaultId)
-
+        
     }
     catch (error) {
         router.push({ name: 'Home' })
+        Pop.error(error);
+    }
+}
+
+async function getVaultKeepsInVault() {
+    try {
+        const vaultId = route.params.vaultId
+        await vaultsService.getVaultKeepsInVault(vaultId)
+    }
+    catch (error) {
         Pop.error(error);
     }
 }
