@@ -1,15 +1,15 @@
 <script setup>
 import { AppState } from '@/AppState';
-import { vaultKeepService } from '@/services/VaultKeepService';
+import VaultKeepKeepCard from '@/components/VaultKeepKeepCard.vue';
 import { vaultsService } from '@/services/VaultsService';
 import Pop from '@/utils/Pop';
-import { AxiosError } from 'axios';
 import { computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 
 
 const vault = computed(() => AppState.activeVault)
+const vaultKeeps = computed(() => AppState.vaultKeeps)
 
 
 const route = useRoute()
@@ -25,7 +25,7 @@ async function getVaultById() {
     try {
         const vaultId = route.params.vaultId
         await vaultsService.getVaultById(vaultId)
-        
+
     }
     catch (error) {
         router.push({ name: 'Home' })
@@ -62,9 +62,19 @@ async function getVaultKeepsInVault() {
                     </div>
                 </section>
             </div>
-            <section class="row text-center">
+            <section class="row text-center mb-md-3 mb-5">
                 <div>
-                    <span class="rounded rounded-pill bg-secondary p-3 oxygen-bold">keeps</span>
+                    <span v-if="vaultKeeps.length == 1" class="rounded rounded-pill bg-secondary p-3 oxygen-bold">{{
+                        vaultKeeps.length }} Keep</span>
+                    <span v-else class="rounded rounded-pill bg-secondary p-3 oxygen-bold">{{ vaultKeeps.length }}
+                        Keeps</span>
+                </div>
+            </section>
+            <section class="row mb-2">
+                <div class="masonry-container">
+                    <div v-for="vaultKeep in vaultKeeps" :key="vaultKeep.id" class="mb-3 masonry-object">
+                        <VaultKeepKeepCard :vaultKeep="vaultKeep" />
+                    </div>
                 </div>
             </section>
         </div>
@@ -73,9 +83,21 @@ async function getVaultKeepsInVault() {
 
 
 <style lang="scss" scoped>
-.background-wrapper {
-    padding: 20px 350px;
-    margin: 20px 0;
+
+@media(min-width: 768px){
+
+    .background-wrapper {
+        padding: 20px 350px;
+        margin: 20px 0;
+    }
+}
+
+@media(max-width: 768px){
+
+    .background-wrapper {
+        padding: 20px 100px;
+        margin: 20px 0;
+    }
 }
 
 .heroImg {
@@ -86,9 +108,53 @@ async function getVaultKeepsInVault() {
     min-height: 20dvh;
 }
 
-.vault-name {
-    color: #F9F6FA;
-    text-shadow: 3px 3px 5px black;
-    font-size: 23.59px;
+@media(min-width: 768px){
+
+    .vault-name {
+        color: #F9F6FA;
+        text-shadow: 3px 3px 5px black;
+        font-size: 23.59px;
+    }
+}
+
+@media(max-width: 768px){
+
+    .vault-name {
+        color: #F9F6FA;
+        text-shadow: 3px 3px 5px black;
+        font-size: 16px;
+    }
+}
+
+@media(min-width: 768px) {
+
+.masonry-container {
+    columns: 235px;
+    column-gap: 2rem;
+    row-gap: 2rem;
+    width: 100%;
+
+
+    .masonry-object {
+        break-inside: avoid;
+        display: inline-block;
+        position: relative;
+    }
+}
+}
+
+@media(max-width: 768px) {
+
+.masonry-container {
+    columns: 150px;
+    width: 100%;
+
+
+    .masonry-object {
+        break-inside: avoid;
+        display: inline-block;
+        position: relative;
+    }
+}
 }
 </style>
