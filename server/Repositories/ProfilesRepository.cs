@@ -1,4 +1,5 @@
 
+
 namespace keepr.Repositories;
 
 public class ProfilesRepository
@@ -15,4 +16,5 @@ public class ProfilesRepository
         string sql = @"SELECT * FROM profile_view WHERE id = @id";
         return _db.Query<Profile>(sql, new { id }).SingleOrDefault();
     }
+
 }

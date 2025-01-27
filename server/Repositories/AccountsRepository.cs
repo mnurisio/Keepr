@@ -17,7 +17,14 @@ public class AccountsRepository
 
   internal Account GetById(string id)
   {
-    string sql = "SELECT * FROM accounts WHERE id = @id";
+    string sql = @"SELECT 
+    accounts.id,
+    accounts.cover_img,
+    accounts.`createdAt`,
+    accounts.name,
+    accounts.picture,
+    accounts.`updatedAt`
+    FROM accounts WHERE id = @Id";
     return _db.QueryFirstOrDefault<Account>(sql, new { id });
   }
 
@@ -32,13 +39,14 @@ public class AccountsRepository
     return newAccount;
   }
 
-  internal Account Edit(Account update)
+  internal Profile Edit(Profile update)
   {
     string sql = @"
-            UPDATE accounts
+            UPDATE profile_view
             SET 
               name = @Name,
-              picture = @Picture
+              picture = @Picture,
+              cover_img = @CoverImg
             WHERE id = @Id;";
     _db.Execute(sql, update);
     return update;

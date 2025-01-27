@@ -13,6 +13,10 @@ ALTER TABLE accounts DROP COLUMN cover_img
 
 
 CREATE VIEW profile_view AS
+
+
+
+
 SELECT
 accounts.id,
 accounts.cover_img,

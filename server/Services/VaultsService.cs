@@ -59,4 +59,10 @@ public class VaultsService{
         List<Vault> vaults = _repository.GetProfileVaults(profileId);
         return vaults.FindAll(vault => vault.CreatorId == profileId && vault.IsPrivate == false);
     }
+
+    internal List<Vault> GetAccountVaults(string userId)
+    {
+        List<Vault> vaults = _repository.GetAccountVaults(userId);
+        return vaults;
+    }
 }
