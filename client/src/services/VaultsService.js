@@ -5,6 +5,13 @@ import { Vault } from "@/models/Vault.js"
 import { VaultKeep } from "@/models/VaultKeep.js"
 
 class VaultsService {
+
+   async deleteVault(vaultId) {
+        const response = await api.delete(`api/vaults/${vaultId}`)
+        logger.log('deleting vault', response.data)
+        const vaultToDelete = AppState.accountVaults.findIndex(vault => vault.id == vaultId)
+        AppState.accountVaults.splice(vaultToDelete, 1)
+    }
     async createVault(vaultData) {
         const response = await api.post('api/vaults', vaultData)
         logger.log('creating vault', response.data)

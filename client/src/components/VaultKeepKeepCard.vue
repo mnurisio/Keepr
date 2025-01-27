@@ -10,6 +10,7 @@ import { computed } from 'vue'
 
 const account = computed(() => AppState.account)
 const activeKeep = computed(() => AppState.activeKeep)
+const vault = computed(() => AppState.activeVault)
 
 const props = defineProps({
     vaultKeep: { type: VaultKeep, required: true }
@@ -33,6 +34,7 @@ async function DeleteVaultKeep(vaultKeepId) {
     try {
         const confirm = await Pop.confirm("Are you sure you want to remove this keep from your vault?")
         if (!confirm) return
+        if(props.vaultKeep.creatorId != account.value.id) throw new Error("You cannot delete a keep out of someone else's vault!")
         await vaultKeepService.DeleteKeep(vaultKeepId)
     }
     catch (error) {
@@ -44,7 +46,7 @@ async function DeleteVaultKeep(vaultKeepId) {
 
 
 <template>
-    <div v-if="vaultKeep.creatorId == account?.id">
+    <div v-if="vault.creatorId == account?.id">
         <button @click="DeleteVaultKeep(vaultKeep.vaultKeepId)" title="Delete Keep" class="btn btn-danger">
             <i class="mdi mdi-close"></i>
         </button>

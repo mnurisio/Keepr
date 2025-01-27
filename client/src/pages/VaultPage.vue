@@ -10,6 +10,7 @@ import { useRoute, useRouter } from 'vue-router';
 
 const vault = computed(() => AppState.activeVault)
 const vaultKeeps = computed(() => AppState.vaultKeeps)
+const account = computed(() => AppState.account)
 
 
 const route = useRoute()
@@ -37,6 +38,19 @@ async function getVaultKeepsInVault() {
     try {
         const vaultId = route.params.vaultId
         await vaultsService.getVaultKeepsInVault(vaultId)
+        
+    }
+    catch (error) {
+        Pop.error(error);
+    }
+}
+
+async function deleteVault(vaultId) {
+    try {
+        const confirm = await Pop.confirm("Are you sure you want to delete this keep?")
+        if (!confirm) return
+        await vaultsService.deleteVault(vaultId)
+        router.push({name: 'Account'})
     }
     catch (error) {
         Pop.error(error);
@@ -61,6 +75,9 @@ async function getVaultKeepsInVault() {
                         </div>
                     </div>
                 </section>
+                <div v-if="vault.creatorId == account.id">
+                    <button @click="deleteVault(vault.id)" class="delete-button"><i class="mdi mdi-trash-can"></i></button>
+                </div>
             </div>
             <section class="row text-center mb-md-3 mb-5">
                 <div>
@@ -83,20 +100,46 @@ async function getVaultKeepsInVault() {
 
 
 <style lang="scss" scoped>
-
-@media(min-width: 768px){
+@media(min-width: 768px) {
 
     .background-wrapper {
         padding: 20px 350px;
         margin: 20px 0;
+        position: relative;
     }
 }
 
-@media(max-width: 768px){
+@media(max-width: 768px) {
 
     .background-wrapper {
         padding: 20px 100px;
         margin: 20px 0;
+    }
+}
+
+@media(min-width: 768px) {
+
+    .delete-button {
+        position: absolute;
+        left: 72.5%;
+        top: calc(0% + 8px);
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: rgb(182, 0, 0) !important;
+        color: #F9F6FA;
+    }
+}
+
+@media(max-width: 768px) {
+
+    .delete-button {
+        position: absolute;
+        left: 74.5%;
+        top: calc(0% + 90px);
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        background-color: rgb(182, 0, 0) !important;
+        color: #F9F6FA;
     }
 }
 
@@ -108,7 +151,7 @@ async function getVaultKeepsInVault() {
     min-height: 20dvh;
 }
 
-@media(min-width: 768px){
+@media(min-width: 768px) {
 
     .vault-name {
         color: #F9F6FA;
@@ -117,7 +160,7 @@ async function getVaultKeepsInVault() {
     }
 }
 
-@media(max-width: 768px){
+@media(max-width: 768px) {
 
     .vault-name {
         color: #F9F6FA;
@@ -128,33 +171,33 @@ async function getVaultKeepsInVault() {
 
 @media(min-width: 768px) {
 
-.masonry-container {
-    columns: 235px;
-    column-gap: 2rem;
-    row-gap: 2rem;
-    width: 100%;
+    .masonry-container {
+        columns: 235px;
+        column-gap: 2rem;
+        row-gap: 2rem;
+        width: 100%;
 
 
-    .masonry-object {
-        break-inside: avoid;
-        display: inline-block;
-        position: relative;
+        .masonry-object {
+            break-inside: avoid;
+            display: inline-block;
+            position: relative;
+        }
     }
-}
 }
 
 @media(max-width: 768px) {
 
-.masonry-container {
-    columns: 150px;
-    width: 100%;
+    .masonry-container {
+        columns: 150px;
+        width: 100%;
 
 
-    .masonry-object {
-        break-inside: avoid;
-        display: inline-block;
-        position: relative;
+        .masonry-object {
+            break-inside: avoid;
+            display: inline-block;
+            position: relative;
+        }
     }
-}
 }
 </style>
