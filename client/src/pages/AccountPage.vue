@@ -10,6 +10,7 @@ import { vaultsService } from '@/services/VaultsService.js';
 import { keepsService } from '@/services/KeepsService.js';
 import ModalWrapper from '@/components/ModalWrapper.vue';
 import EditAccountForm from '@/components/EditAccountForm.vue';
+import { accountService } from '@/services/AccountService.js';
 
 
 const account = computed(() => AppState.account)
@@ -21,33 +22,24 @@ const profileVaults = computed(() => vaults.value.filter(vault => vault.creatorI
 const route = useRoute()
 
 watch(route, () => {
-  getProfileById()
-  getMyVaults()
-  getProfileKeeps()
+  accountService.getAccount()
 }, { immediate: true })
 
-async function getProfileById() {
-  try {
-    const profileId = route.params.profileId
-    await profilesService.getProfileById(profileId)
-  }
-  catch (error) {
-    Pop.error(error);
-  }
-}
+watch(account, getProfileKeeps)
 
-async function getMyVaults() {
-  try {
-    await vaultsService.getMyVaults()
-  }
-  catch (error) {
-    Pop.error(error);
-  }
-}
+
+// async function getMyVaults() {
+//   try {
+//     await vaultsService.getMyVaults()
+//   }
+//   catch (error) {
+//     Pop.error(error);
+//   }
+// }
 
 async function getProfileKeeps() {
   try {
-    const profileId = route.params.profileId
+    const profileId = AppState.account?.id
     await keepsService.getProfileKeeps(profileId)
 
   }
