@@ -8,7 +8,9 @@ import { profilesService } from '@/services/ProfilesService.js';
 import { useRoute } from 'vue-router';
 import { vaultsService } from '@/services/VaultsService.js';
 import { keepsService } from '@/services/KeepsService.js';
-import { accountService } from '@/services/AccountService.js';
+import ModalWrapper from '@/components/ModalWrapper.vue';
+import EditAccountForm from '@/components/EditAccountForm.vue';
+
 
 const account = computed(() => AppState.account)
 const profile = computed(() => AppState.activeProfile)
@@ -19,70 +21,67 @@ const profileVaults = computed(() => vaults.value.filter(vault => vault.creatorI
 const route = useRoute()
 
 watch(route, () => {
-    getProfileById()
-    getMyVaults()
-    getProfileKeeps()
+  getProfileById()
+  getMyVaults()
+  getProfileKeeps()
 }, { immediate: true })
 
 async function getProfileById() {
-    try {
-        const profileId = route.params.profileId
-        await profilesService.getProfileById(profileId)
-    }
-    catch (error) {
-        Pop.error(error);
-    }
-}
-
-async function getMyVaults(){
   try {
-    await vaultsService.getMyVaults()
+    const profileId = route.params.profileId
+    await profilesService.getProfileById(profileId)
   }
-  catch (error){
+  catch (error) {
     Pop.error(error);
   }
 }
 
-async function getProfileVaults() {
-    try {
-        const profileId = route.params.profileId
-        await vaultsService.getProfileVaults(profileId)
-
-    }
-    catch (error) {
-        Pop.error(error);
-    }
+async function getMyVaults() {
+  try {
+    await vaultsService.getMyVaults()
+  }
+  catch (error) {
+    Pop.error(error);
+  }
 }
 
 async function getProfileKeeps() {
-    try {
-        const profileId = route.params.profileId
-        await keepsService.getProfileKeeps(profileId)
+  try {
+    const profileId = route.params.profileId
+    await keepsService.getProfileKeeps(profileId)
 
-    }
-    catch (error) {
-        Pop.error(error);
-    }
+  }
+  catch (error) {
+    Pop.error(error);
+  }
 }
 
 </script>
 
 <template>
   <div v-if="account" class="container">
-    <section class="row heroImg justify-content-center align-items-center p-3"
-      :style="{ backgroundImage: `url(${profile?.coverImg})` }">
-      <div class="col-md-5">
-        <div class="d-flex justify-content-center align-items-center">
-          <img class="profilePicture" :src="account.picture" :alt="account.name">
+    <div class="background-wrapper">
+      <section class="row heroImg justify-content-center align-items-center my-md-3 mt-md-0 mt-3 "
+        :style="{ backgroundImage: `url(${account?.coverImg})` }">
+        <div class="col-md-5 account-info">
+          <div class="d-flex justify-content-center align-items-center">
+            <img class="profilePicture" :src="account.picture" :alt="account.name">
+          </div>
+          <div class="text-center fs-1 oxygen-bold">{{ account.name }}</div>
+          <div class="text-center oxygen-light">
+            {{ vaults.length }} Vaults | {{ keeps.length }} Keeps
+          </div>
         </div>
-        <div class="text-center fs-1 oxygen-bold">{{ account.name }}</div>
-        <div class="text-center oxygen-light">
-          {{ profileVaults.length }} Vaults | {{ keeps.length }} Keeps
-        </div>
+      </section>
+    </div>
+    <section>
+      <div class="text-end edit-button">
+        <span role="button" data-bs-toggle="modal" data-bs-target="#accountEditModal"><i
+            class="mdi mdi-pencil"></i></span>
       </div>
     </section>
-    <section>
-      <div class="oxygen-bold fs-1 mb-2">
+    <section class="mt-5">
+      <div class="oxygen-bold fs-1 mb-2 vault-logo">
         Vaults
       </div>
       <div class="row mb-2">
@@ -109,51 +108,122 @@ async function getProfileKeeps() {
       </div>
     </div>
   </div>
+  <ModalWrapper modalId="accountEditModal" modalTitle="Edit Your Account">
+    <EditAccountForm />
+  </ModalWrapper>
 </template>
 
 <style scoped lang="scss">
 .profilePicture {
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    border: 3px solid var(--bs-light);
-    height: 10em;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  border: 3px solid var(--bs-light);
+  height: 10em;
 }
 
-.heroImg {
-    background-size: cover;
-    background-position: center;
-    height: 20em
+@media(min-width: 768px){
+  .vault-logo{
+    margin-top: 125px;
+  }
+}
+
+@media(max-width: 768px){
+  .vault-logo{
+    margin-top: 125px;
+  }
+}
+
+
+@media(min-width: 768px){
+  .edit-button{
+    padding: 0px 290px 0px;
+  }
+}
+
+@media(max-width: 768px){
+  .edit-button{
+    padding: 0px 20px 0px;
+  }
+}
+
+@media(min-width: 768px) {
+  .background-wrapper {
+    padding: 30px 300px 0px;
+  }
+}
+
+@media(max-width: 768px) {
+  .background-wrapper {
+    padding: 10px 30px;
+  }
+}
+
+
+@media(min-width: 768px) {
+  .account-info {
+    position: absolute;
+    top: calc(0% + 220px);
+  }
+}
+
+@media(max-width: 768px) {
+  .account-info {
+    position: absolute;
+    top: calc(0% + 230px);
+  }
 }
 
 @media(min-width: 768px) {
 
-    .masonry-container {
-        columns: 235px;
-        column-gap: 2rem;
-        row-gap: 2rem;
-        width: 100%;
-
-
-        .masonry-object {
-            break-inside: avoid;
-            display: inline-block;
-            position: relative;
-        }
-    }
+  .heroImg {
+    background-size: cover;
+    background-position: center;
+    height: 20em;
+    position: relative;
+    border-radius: 10px;
+  }
 }
 
 @media(max-width: 768px) {
 
-    .masonry-container {
-        columns: 150px;
-        width: 100%;
+  .heroImg {
+    background-size: cover;
+    background-position: center;
+    height: 20em;
+    position: relative;
+    border-radius: 10px;
+  }
+}
+
+@media(min-width: 768px) {
+
+  .masonry-container {
+    columns: 235px;
+    column-gap: 2rem;
+    row-gap: 2rem;
+    width: 100%;
 
 
-        .masonry-object {
-            break-inside: avoid;
-            display: inline-block;
-            position: relative;
-        }
+    .masonry-object {
+      break-inside: avoid;
+      display: inline-block;
+      position: relative;
     }
+  }
+}
+
+@media(max-width: 768px) {
+
+  .masonry-container {
+    columns: 150px;
+    width: 100%;
+
+
+    .masonry-object {
+      break-inside: avoid;
+      display: inline-block;
+      position: relative;
+    }
+  }
 }
 </style>
