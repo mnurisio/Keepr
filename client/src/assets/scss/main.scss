@@ -3,6 +3,7 @@
 @import "./loaders.scss";
 @import url('https://fonts.googleapis.com/css2?family=Marko+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quando&display=swap');
 
 body {
   overscroll-behavior: none;
@@ -46,6 +47,13 @@ a {
   font-weight: 700;
   font-style: normal;
 }
+
+.quando-regular {
+  font-family: "Quando", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 
 
 

@@ -115,6 +115,7 @@ async function getProfileKeeps() {
 
 .heroImg {
     background-size: cover;
+    background-position: center;
     height: 20em
 }
 
