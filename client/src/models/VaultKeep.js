@@ -5,7 +5,6 @@ export class VaultKeep{
         this.updatedAt = new Date(data.updatedAt)
         this.vaultKeepId = data.vaultKeepId
         this.vaultId = data.vaultId
-        this.keepId = data.keepId
         this.name = data.name
         this.description = data.description
         this.img = data.img
