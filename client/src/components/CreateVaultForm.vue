@@ -44,8 +44,8 @@ async function createVault() {
         </div>
         <div class="text-end">Private vaults can only be seen by you</div>
         <div class="row justify-content-end">
-            <div class="form-check mb-3 col-md-6 text-end align-self-center">
-                <input v-model="editableVaultData.isPrivate" type="checkbox" class="form-check-input fs-4" id="isPrivate">
+            <div class="form-check mb-3 col-md-6 text-end align-self-center d-flex justify-content-end">
+                <input v-model="editableVaultData.isPrivate" type="checkbox" class="form-check-input me-2 fs-4" id="isPrivate">
                 <label class="form-check-label fs-4" for="isPrivate">Make Vault Private?</label>
             </div>
         </div>
@@ -56,4 +56,9 @@ async function createVault() {
 </template>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+.form-check-input{
+    float: none;
+}
+</style>

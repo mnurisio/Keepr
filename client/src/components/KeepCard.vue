@@ -137,6 +137,7 @@ async function DeleteKeep(keepId) {
         border-radius: 50%;
         height: 3em;
         border: 2px solid #F9F6FA;
+        object-fit: cover;
     }
 }
 

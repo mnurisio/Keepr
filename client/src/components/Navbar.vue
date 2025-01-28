@@ -1,13 +1,15 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { loadState, saveState } from '../utils/Store.js';
 import Login from './Login.vue';
 import CreateDropdown from './CreateDropdown.vue';
 import ModalWrapper from './ModalWrapper.vue';
 import CreateKeepForm from './CreateKeepForm.vue';
 import CreateVaultForm from './CreateVaultForm.vue';
+import { AppState } from '@/AppState.js';
 
 const theme = ref(loadState('theme') || 'light')
+const account = computed(() => AppState.account)
 
 onMounted(() => {
   document.documentElement.setAttribute('data-bs-theme', theme.value)
@@ -34,7 +36,8 @@ function toggleTheme() {
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-between p-3" id="navbarText">
-        <CreateDropdown />
+        <CreateDropdown v-if="account" />
+        <div v-else></div>
         <!-- LOGIN COMPONENT HERE -->
         <Login />
       </div>

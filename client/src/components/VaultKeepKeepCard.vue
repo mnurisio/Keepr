@@ -21,6 +21,8 @@ const props = defineProps({
 async function setActiveKeep() {
     try {
         keepsService.setActiveKeep(props.vaultKeep)
+        await keepsService.getKeepById(activeKeep.value.id)
+        if (activeKeep.value.creatorId == account.value?.id) return
         activeKeep.value.views++
     }
     catch (error) {
@@ -34,7 +36,6 @@ async function DeleteVaultKeep(vaultKeepId) {
     try {
         const confirm = await Pop.confirm("Are you sure you want to remove this keep from your vault?")
         if (!confirm) return
-        if(props.vaultKeep.creator.id != account.value?.id) throw new Error("You cannot delete a keep out of someone else's vault!")
         await vaultKeepService.DeleteKeep(vaultKeepId)
     }
     catch (error) {
@@ -136,6 +137,7 @@ async function DeleteVaultKeep(vaultKeepId) {
         border-radius: 50%;
         height: 3em;
         border: 2px solid #F9F6FA;
+        object-fit: cover;
     }
 }
 

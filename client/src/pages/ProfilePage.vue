@@ -113,6 +113,7 @@ async function getProfileKeeps() {
     border-radius: 50%;
     border: 3px solid var(--bs-light);
     height: 10em;
+    object-fit: cover;
 }
 
 @media(min-width: 768px) {
