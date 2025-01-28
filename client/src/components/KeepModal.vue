@@ -1,6 +1,5 @@
 <script setup>
 import { AppState } from '@/AppState';
-import { Keep } from '@/models/Keep';
 import { Modal } from 'bootstrap';
 import { computed } from 'vue';
 import MyVaultDropdown from './MyVaultDropdown.vue';
@@ -38,24 +37,58 @@ const account = computed(() => AppState.account)
                                 <p>{{ keep.description }}</p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-4 ms-2">
-                                <MyVaultDropdown />
-                            </div>
-                            <div class="col-md-3">
-                                <button form="vaultKeep-submit">Save</button>
-                            </div>
-                            <div class="col-md-4 text-end">
-                                <div v-if="account?.id != keep.creatorId">
-                                    <img :src="keep.creator.picture" :alt="keep.creator.name" class="profile-pic me-2">
-                                    <router-link :to="{name: 'Profile', params: {profileId: keep.creatorId}}" >
-                                        <span class="profile-name-button" role="button" @click="Modal.getInstance('#keepModal').hide()">{{ keep.creator.name }}</span>
-                                    </router-link>
+                        <div v-if="account" class="container-fluid">
+                            <div class="row justify-content-between">
+                                <div class="col-md-5 col-8 ms-md-4 mb-md-3 mb-4 px-md-0 ps-md-0 ps-2">
+                                    <div class="d-flex justify-content-start">
+                                        <MyVaultDropdown />
+                                        <button
+                                            class="ms-md-2 mb-md-2 mb-2 ms-1 btn btn-success save-button oxygen-bold"
+                                            form="vaultKeep-submit">
+                                            Save
+                                        </button>
+                                    </div>
                                 </div>
-                                <div v-else>
-                                    <img :src="keep.creator.picture" :alt="keep.creator.name" class="profile-pic me-2">
-                                    <router-link :to="{name: 'Account'}" >
-                                        <span class="profile-name-button" role="button" @click="Modal.getInstance('#keepModal').hide()">{{ keep.creator.name }}</span>
+                                <div class="col-md-5 col-4 me-md-3 px-0 oxygen-bold profile-div">
+                                    <div v-if="account?.id != keep.creatorId">
+                                        <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
+                                            <div class="d-flex justify-content-center text-center">
+                                                <img :src="keep.creator.picture" :alt="keep.creator.name"
+                                                    class="profile-pic me-2">
+                                                <span class="profile-name-button align-self-center text-start"
+                                                    role="button" @click="Modal.getInstance('#keepModal').hide()">
+                                                    {{ keep.creator.name }}
+                                                </span>
+                                            </div>
+                                        </router-link>
+                                    </div>
+                                    <div v-else>
+                                        <router-link :to="{ name: 'Account' }">
+                                            <div class="d-flex justify-content-center text-center">
+                                                <img :src="keep.creator.picture" :alt="keep.creator.name"
+                                                    class="profile-pic me-2">
+                                                <span class="profile-name-button align-self-center text-start"
+                                                    role="button" @click="Modal.getInstance('#keepModal').hide()">
+                                                    {{ keep.creator.name }}
+                                                </span>
+                                            </div>
+                                        </router-link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div class="col-12 oxygen-bold profile-div mb-5">
+                                <div>
+                                    <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
+                                        <div class="d-flex justify-content-center text-center">
+                                            <img :src="keep.creator.picture" :alt="keep.creator.name"
+                                                class="profile-pic">
+                                            <span class="profile-name-button align-self-center ms-3" role="button"
+                                                @click="Modal.getInstance('#keepModal').hide()">
+                                                {{ keep.creator.name }}
+                                            </span>
+                                        </div>
                                     </router-link>
                                 </div>
                             </div>
@@ -74,6 +107,11 @@ img {
     object-position: center;
 }
 
+.save-button {
+    border-radius: 10px;
+    color: #F9F6FA;
+}
+
 .modal-content {
     overflow: hidden;
 }
@@ -84,16 +122,21 @@ img {
     justify-content: space-between;
 }
 
-.profile-pic{
+.profile-pic {
     aspect-ratio: 1/1;
     border-radius: 50%;
-    height:2.5em;
+    height: 2.5em;
 }
 
-.profile-name-button:hover{
+.profile-name-button:hover {
     text-decoration: underline;
 }
-.profile-name-button{
-    color:black;
+
+.profile-name-button {
+    color: black;
+}
+
+.profile-div {
+    overflow: hidden;
 }
 </style>

@@ -20,7 +20,7 @@ async function setActiveKeep() {
     try {
         keepsService.setActiveKeep(props.keep)
         await keepsService.getKeepById(activeKeep.value.id)
-        if (activeKeep.value.creatorId == account.value.id) return
+        if (activeKeep.value.creatorId == account.value?.id) return
         activeKeep.value.views++
     }
     catch (error) {
@@ -44,7 +44,7 @@ async function DeleteKeep(keepId) {
 
 <template>
     <div v-if="keep.creatorId == account?.id">
-        <button @click="DeleteKeep(keep.id)" title="Delete Keep" class="btn btn-danger">
+        <button @click="DeleteKeep(keep.id)" title="Delete Keep">
             <i class="mdi mdi-close"></i>
         </button>
     </div>
@@ -60,12 +60,12 @@ async function DeleteKeep(keepId) {
     </div>
     <div v-if="account?.id != keep.creatorId" class="col-6">
         <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
-            <img :src="keep.creator.picture" :alt="keep.name" class="profile-pic">
+            <img :title="keep.creator.name" :src="keep.creator.picture" :alt="keep.name" class="profile-pic">
         </router-link>
     </div>
     <div v-else class="col-6">
         <router-link :to="{ name: 'Account' }">
-            <img :src="keep.creator.picture" :alt="keep.name" class="profile-pic">
+            <img :title="keep.creator.name" :src="keep.creator.picture" :alt="keep.name" class="profile-pic">
         </router-link>
     </div>
 </template>
@@ -124,6 +124,7 @@ async function DeleteKeep(keepId) {
         aspect-ratio: 1/1;
         border-radius: 50%;
         height: 3em;
+        border: 2px solid #F9F6FA;
     }
 }
 
@@ -135,10 +136,11 @@ async function DeleteKeep(keepId) {
 @media (min-width: 768px) {
     button {
         position: absolute;
-        left: 94%;
+        right: calc(0% - 3%);
         top: calc(0% - 15px);
         aspect-ratio: 1/1;
         border-radius: 50%;
+        color: #F9F6FA;
         background-color: rgb(182, 0, 0) !important
     }
 }
@@ -146,10 +148,11 @@ async function DeleteKeep(keepId) {
 @media (max-width: 768px) {
     button {
         position: absolute;
-        left: 138px;
-        top: calc(0% - 10px);
+        right: calc(0% - 12px);
+        top: calc(0% - 15px);
         aspect-ratio: 1/1;
         border-radius: 50%;
+        color: #F9F6FA;
         background-color: rgb(182, 0, 0) !important
     }
 }

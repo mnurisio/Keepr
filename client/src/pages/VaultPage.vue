@@ -70,9 +70,11 @@ async function deleteVault(vaultId) {
                         <div class="quando-regular vault-name fs-1">
                             {{ vault.name }}
                         </div>
+                        <router-link :to="{ name: 'Profile', params: { profileId: vault.creatorId } }">
                         <div class="quando-regular vault-name">
-                            by {{ vault.creator.name }}
-                        </div>
+                                by {{ vault.creator.name }}
+                            </div>
+                        </router-link>
                     </div>
                 </section>
                 <div v-if="vault.creatorId == account?.id">
@@ -80,11 +82,12 @@ async function deleteVault(vaultId) {
                 </div>
             </div>
             <section class="row text-center mb-md-3 mb-5">
-                <div>
+                <div class="mb-md-4 mb-2">
                     <span v-if="vaultKeeps.length == 1" class="rounded rounded-pill bg-secondary p-3 oxygen-bold">{{
                         vaultKeeps.length }} Keep</span>
                     <span v-else class="rounded rounded-pill bg-secondary p-3 oxygen-bold">{{ vaultKeeps.length }}
-                        Keeps</span>
+                        Keeps
+                    </span>
                 </div>
             </section>
             <section class="row mb-2">
@@ -167,6 +170,10 @@ async function deleteVault(vaultId) {
         text-shadow: 3px 3px 5px black;
         font-size: 16px;
     }
+}
+
+.vault-name:hover{
+    text-decoration: underline;
 }
 
 @media(min-width: 768px) {

@@ -70,7 +70,7 @@ async function getProfileKeeps() {
                         <img class="profilePicture" :src="profile.picture" :alt="profile.name">
                     </div>
                     <div class="text-center fs-1 oxygen-bold">{{ profile.name }}</div>
-                    <div class="text-center oxygen-light">
+                    <div class="text-center oxygen-bold">
                         {{ vaults.length }} Vaults | {{ keeps.length }} Keeps
                     </div>
                 </div>

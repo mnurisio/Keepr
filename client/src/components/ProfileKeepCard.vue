@@ -28,27 +28,6 @@ async function setActiveKeep() {
 }
 
 
-async function getKeepById() {
-    try {
-        const keepId = activeKeep.value.id
-        await keepsService.getKeepById(keepId)
-    }
-    catch (error) {
-        Pop.error(error);
-    }
-}
-
-async function DeleteKeep(keepId) {
-    try {
-        const confirm = await Pop.confirm("Are you sure you want to delete this keep?")
-        if (!confirm) return
-        await keepsService.DeleteKeep(keepId)
-    }
-    catch (error) {
-        Pop.error(error);
-    }
-}
-
 </script>
 
 

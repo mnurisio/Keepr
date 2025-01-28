@@ -47,7 +47,7 @@ async function DeleteVaultKeep(vaultKeepId) {
 
 <template>
     <div v-if="vault.creatorId == account?.id">
-        <button @click="DeleteVaultKeep(vaultKeep.vaultKeepId)" title="Delete Keep" class="btn btn-danger">
+        <button @click="DeleteVaultKeep(vaultKeep.vaultKeepId)" title="Delete Keep">
             <i class="mdi mdi-close"></i>
         </button>
     </div>
@@ -63,12 +63,12 @@ async function DeleteVaultKeep(vaultKeepId) {
     </div>
     <div v-if="account?.id != vaultKeep.creatorId" class="col-6">
         <router-link :to="{ name: 'Profile', params: { profileId: vaultKeep.creatorId } }">
-            <img :src="vaultKeep.creator.picture" :alt="vaultKeep.name" class="profile-pic">
+            <img :title="vaultKeep.creator.name" :src="vaultKeep.creator.picture" :alt="vaultKeep.name" class="profile-pic">
         </router-link>
     </div>
     <div v-else class="col-6">
         <router-link :to="{ name: 'Account' }">
-            <img :src="vaultKeep.creator.picture" :alt="vaultKeep.name" class="profile-pic">
+            <img :title="vaultKeep.creator.name" :src="vaultKeep.creator.picture" :alt="vaultKeep.name" class="profile-pic">
         </router-link>
     </div>
 </template>
@@ -127,21 +127,22 @@ async function DeleteVaultKeep(vaultKeepId) {
         aspect-ratio: 1/1;
         border-radius: 50%;
         height: 3em;
+        border: 2px solid #F9F6FA;
     }
 }
 
 .keep-card {
     box-shadow: 5px 5px -3px rgba(0, 0, 0, 0.329);
-
 }
 
 @media (min-width: 768px) {
     button {
         position: absolute;
-        left: 92%;
+        right: calc(0% - 4%);
         top: calc(0% - 15px);
         aspect-ratio: 1/1;
         border-radius: 50%;
+        color: #F9F6FA;
         background-color: rgb(182, 0, 0) !important
     }
 }
@@ -149,10 +150,11 @@ async function DeleteVaultKeep(vaultKeepId) {
 @media (max-width: 768px) {
     button {
         position: absolute;
-        left: 88%;
-        top: calc(0% - 16px);
+        right: calc(0% - 5%);
+        top: calc(0% - 15px);
         aspect-ratio: 1/1;
         border-radius: 50%;
+        color: #F9F6FA;      
         background-color: rgb(182, 0, 0) !important
     }
 }
