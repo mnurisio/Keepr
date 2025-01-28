@@ -34,7 +34,7 @@ async function DeleteVaultKeep(vaultKeepId) {
     try {
         const confirm = await Pop.confirm("Are you sure you want to remove this keep from your vault?")
         if (!confirm) return
-        if(props.vaultKeep.creatorId != account.value.id) throw new Error("You cannot delete a keep out of someone else's vault!")
+        if(props.vaultKeep.creator.id != account.value?.id) throw new Error("You cannot delete a keep out of someone else's vault!")
         await vaultKeepService.DeleteKeep(vaultKeepId)
     }
     catch (error) {

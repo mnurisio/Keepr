@@ -20,15 +20,13 @@ async function setActiveKeep() {
     try {
         keepsService.setActiveKeep(props.keep)
         await keepsService.getKeepById(activeKeep.value.id)
+        if (activeKeep.value.creatorId == account.value.id) return
         activeKeep.value.views++
     }
     catch (error) {
         Pop.error(error);
     }
-
 }
-
-
 
 async function DeleteKeep(keepId) {
     try {

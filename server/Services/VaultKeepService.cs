@@ -15,6 +15,7 @@ public class VaultKeepService{
     {
         Vault vault = _vaultsService.GetVaultById(vaultKeepData.VaultId, userId);
         VaultKeep vaultKeep = _repository.CreateVaultKeep(vaultKeepData);
+        
 
         if(vaultKeep.CreatorId != vault.CreatorId) throw new Exception("YOU CANNOT CREATE A VAULTKEEP FOR SOMEONE ELSE VAULT");
 

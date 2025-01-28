@@ -75,7 +75,7 @@ async function deleteVault(vaultId) {
                         </div>
                     </div>
                 </section>
-                <div v-if="vault.creatorId == account.id">
+                <div v-if="vault.creatorId == account?.id">
                     <button @click="deleteVault(vault.id)" class="delete-button"><i class="mdi mdi-trash-can"></i></button>
                 </div>
             </div>

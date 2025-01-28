@@ -26,7 +26,7 @@ defineProps({
         <router-link :to="{name: 'Vault', params: {vaultId: vault.id}}">
             <div :style="{backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 100%, rgba(0, 0, 0, 1.0) 100%), url(${vault.img})`}" class="vault-image d-flex align-items-end p-3">
                 <div class="row w-100 vault-row">
-                    <span class="vault-name marko-one">PRIVATE <i class="mdi mdi-lock"></i></span>
+                    <span class="vault-name marko-one">{{vault.name}} <i class="mdi mdi-lock"></i></span>
                 </div>
             </div>
         </router-link>

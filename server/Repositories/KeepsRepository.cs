@@ -40,11 +40,11 @@ public class KeepsRepository
     {
         string sql = @"
         SELECT
-        keeps.*,
+        kept_count_view.*,
         accounts.*
-        FROM keeps
-        JOIN accounts ON accounts.id = keeps.creator_id
-        ORDER BY keeps.created_at ASC;";
+        FROM kept_count_view
+        JOIN accounts ON accounts.id = kept_count_view.creator_id
+        ORDER BY kept_count_view.created_at ASC;";
 
         List<Keep> keeps = _db.Query(sql, (Keep keep, Profile account) =>
         {
@@ -59,11 +59,11 @@ public class KeepsRepository
     {
         string sql = @"
         SELECT
-        keeps.*,
+        kept_count_view.*,
         accounts.*
-        FROM keeps
-        JOIN accounts ON accounts.id = keeps.creator_id
-        WHERE keeps.id = @keepId;";
+        FROM kept_count_view
+        JOIN accounts ON accounts.id = kept_count_view.creator_id
+        WHERE kept_count_view.id = @keepId;";
 
         Keep keep = _db.Query(sql, (Keep keep, Profile account) =>
         {
