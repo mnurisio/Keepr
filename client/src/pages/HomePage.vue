@@ -29,7 +29,7 @@ async function getAllKeeps() {
 <template>
   <div v-if="keeps" class="container-fluid">
     <div class="masonry-container p-5">
-      <div v-for="keep in keeps" :key="keep.id" class="mb-3 masonry-object">
+      <div v-for="keep in keeps" :key="keep.id" class="mb-4 masonry-object">
         <KeepCard :keep="keep"/>
       </div>
     </div>

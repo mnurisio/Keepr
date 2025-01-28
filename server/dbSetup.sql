@@ -111,7 +111,14 @@ FROM keeps
 LEFT JOIN vault_keeps ON vault_keeps.keep_id = keeps.id
 GROUP BY(keeps.id)
 
-
+SELECT
+        vault_keeps.*,
+        keeps.*,
+        profile_view.*
+        FROM vault_keeps
+        JOIN keeps ON keeps.id = vault_keeps.keep_id
+        JOIN profile_view ON profile_view.id = keeps.creator_id
+        WHERE vault_keeps.vault_id = 4
 
 
 SELECT

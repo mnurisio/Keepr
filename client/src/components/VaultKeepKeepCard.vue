@@ -47,12 +47,12 @@ async function DeleteVaultKeep(vaultKeepId) {
 
 <template>
     <div v-if="vault.creatorId == account?.id">
-        <button @click="DeleteVaultKeep(vaultKeep.vaultKeepId)" title="Delete Keep">
+        <button @click="DeleteVaultKeep(vaultKeep.vaultKeepId)" title="Remove Keep From Vault" class="px-2">
             <i class="mdi mdi-close"></i>
         </button>
     </div>
-    <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal" class="keep-card">
-        <img :src="vaultKeep.img" :alt="vaultKeep.name" class="keep-img">
+    <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal" class="keep-card" title="Open Keep">
+        <img :src="vaultKeep.img" alt="VaultKeep" class="keep-img">
         <div class="marko-one text-text">
             <div class="row">
                 <div class="keep-name col-6">
@@ -63,12 +63,12 @@ async function DeleteVaultKeep(vaultKeepId) {
     </div>
     <div v-if="account?.id != vaultKeep.creatorId" class="col-6">
         <router-link :to="{ name: 'Profile', params: { profileId: vaultKeep.creatorId } }">
-            <img :title="vaultKeep.creator.name" :src="vaultKeep.creator.picture" :alt="vaultKeep.name" class="profile-pic">
+            <img :title="vaultKeep.creator.name + ' Profile Page'" :src="vaultKeep.creator.picture" :alt="vaultKeep.name" class="profile-pic">
         </router-link>
     </div>
     <div v-else class="col-6">
         <router-link :to="{ name: 'Account' }">
-            <img :title="vaultKeep.creator.name" :src="vaultKeep.creator.picture" :alt="vaultKeep.name" class="profile-pic">
+            <img title="Your Account Page" :src="vaultKeep.creator.picture" :alt="vaultKeep.name" class="profile-pic">
         </router-link>
     </div>
 </template>
@@ -89,11 +89,15 @@ async function DeleteVaultKeep(vaultKeepId) {
     .keep-name {
         font-size: 23.59px;
         position: absolute;
-        left: 5%;
-        top: calc(100% - 50px);
+        left: 0%;
+        top: calc(100% - 40px);
         color: #F9F6FA;
         text-shadow: 2px 2px 2px black;
         width: 100%;
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
+        border-radius: 10px;
+        padding-bottom: 3%;
+        padding-left: 4%;
     }
 }
 
@@ -105,10 +109,14 @@ async function DeleteVaultKeep(vaultKeepId) {
         text-shadow: 2px 2px 2px black;
         position: absolute;
         left: 0%;
-        top: calc(100% - 30px);
+        top: calc(100% - 25px);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
+        border-radius: 10px;
+        padding-bottom: 1%;
+        padding-left: 4%;
 
     }
 }
@@ -123,7 +131,7 @@ async function DeleteVaultKeep(vaultKeepId) {
     .profile-pic {
         position: absolute;
         left: 80%;
-        top: calc(100% - 60px);
+        top: calc(100% - 52px);
         aspect-ratio: 1/1;
         border-radius: 50%;
         height: 3em;

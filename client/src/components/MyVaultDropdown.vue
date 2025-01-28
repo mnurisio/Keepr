@@ -33,7 +33,7 @@ async function createVaultKeep() {
 
 <template>
     <form @submit.prevent="createVaultKeep()" id="vaultKeep-submit" class="oxygen-regular mb-2">
-        <select v-model="editableVaultKeepData.vaultId" id="vault" class="form-select text-uppercase" aria-label="Vault Name"
+        <select v-model="editableVaultKeepData.vaultId" id="vault" class="form-select text-uppercase submit-form" aria-label="Vault Name"
             required>
             <option class="text-center" selected value="" disabled>Vaults</option>
             <option v-for="vault in vaults" :key="vault.id" :value="vault.id" class="text-uppercase">
@@ -44,4 +44,9 @@ async function createVaultKeep() {
 </template>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+.submit-form{
+    appearance: none !important;
+}
+</style>

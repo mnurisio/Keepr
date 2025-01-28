@@ -19,6 +19,8 @@ const props = defineProps({
 async function setActiveKeep() {
     try {
         keepsService.setActiveKeep(props.keep)
+        await keepsService.getKeepById(activeKeep.value.id)
+        if (activeKeep.value.creatorId == account.value?.id) return
         activeKeep.value.views++
     }
     catch (error) {
@@ -32,8 +34,8 @@ async function setActiveKeep() {
 
 
 <template>
-    <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal" class="keep-card">
-        <img :src="keep.img" :alt="keep.name" class="keep-img">
+    <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal" class="keep-card" title="Open Keep">
+        <img :src="keep.img" alt="Keep" class="keep-img">
         <div class="marko-one text-text">
             <div class="keep-name col-6">
                 {{ keep.name }}
@@ -57,11 +59,16 @@ async function setActiveKeep() {
     .keep-name {
         font-size: 23.59px;
         position: absolute;
-        left: 5%;
+        left: 0%;
         top: calc(100% - 45px);
         color: #F9F6FA;
         text-shadow: 2px 2px 2px black;
         width: 100%;
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
+        border-radius: 10px;
+        padding-bottom: 3%;
+        padding-left: 3%;
+        
     }
 }
 
@@ -72,8 +79,12 @@ async function setActiveKeep() {
         color: #F9F6FA;
         text-shadow: 2px 2px 2px black;
         position: absolute;
-        left: 5%;
-        top: calc(100% - 30px)
+        left: 0%;
+        top: calc(100% - 30px);
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
+        border-radius: 10px;
+        padding-bottom: 4%;
+        padding-left: 4%;
     }
 }
 

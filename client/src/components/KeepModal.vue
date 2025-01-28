@@ -42,16 +42,14 @@ const account = computed(() => AppState.account)
                                 <div class="col-md-5 col-8 ms-md-4 mb-md-3 mb-4 px-md-0 ps-md-0 ps-2">
                                     <div class="d-flex justify-content-start">
                                         <MyVaultDropdown />
-                                        <button
-                                            class="ms-md-2 mb-md-2 mb-2 ms-1 btn btn-success save-button oxygen-bold"
-                                            form="vaultKeep-submit">
+                                        <button class="ms-md-2 mb-md-2 mb-2 ms-1 btn btn-success save-button oxygen-bold" form="vaultKeep-submit" title="Save to your selected Vault">
                                             Save
                                         </button>
                                     </div>
                                 </div>
                                 <div class="col-md-5 col-4 me-md-3 px-0 oxygen-bold profile-div">
                                     <div v-if="account?.id != keep.creatorId">
-                                        <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
+                                        <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }" :title="keep.creator.name + ' Profile Page'">
                                             <div class="d-flex justify-content-center text-center">
                                                 <img :src="keep.creator.picture" :alt="keep.creator.name"
                                                     class="profile-pic me-2">
@@ -63,7 +61,7 @@ const account = computed(() => AppState.account)
                                         </router-link>
                                     </div>
                                     <div v-else>
-                                        <router-link :to="{ name: 'Account' }">
+                                        <router-link :to="{ name: 'Account' }" title="Your Account Page">
                                             <div class="d-flex justify-content-center text-center">
                                                 <img :src="keep.creator.picture" :alt="keep.creator.name"
                                                     class="profile-pic me-2">

@@ -48,9 +48,9 @@ async function DeleteKeep(keepId) {
             <i class="mdi mdi-close"></i>
         </button>
     </div>
-    <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal" class="keep-card">
-        <img :src="keep.img" :alt="keep.name" class="keep-img">
-        <div class="marko-one text-text">
+    <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal" class="keep-card" title="Open Keep">
+        <img :src="keep.img" alt="Keep" class="keep-img">
+        <div class="marko-one text-text container-fluid">
             <div class="row">
                 <div class="keep-name col-6">
                     {{ keep.name }}
@@ -60,12 +60,12 @@ async function DeleteKeep(keepId) {
     </div>
     <div v-if="account?.id != keep.creatorId" class="col-6">
         <router-link :to="{ name: 'Profile', params: { profileId: keep.creatorId } }">
-            <img :title="keep.creator.name" :src="keep.creator.picture" :alt="keep.name" class="profile-pic">
+            <img :title="keep.creator.name + ' Profile Page'" :src="keep.creator.picture" :alt="keep.name" class="profile-pic">
         </router-link>
     </div>
     <div v-else class="col-6">
         <router-link :to="{ name: 'Account' }">
-            <img :title="keep.creator.name" :src="keep.creator.picture" :alt="keep.name" class="profile-pic">
+            <img title="Your Account Page" :src="keep.creator.picture" :alt="keep.name" class="profile-pic">
         </router-link>
     </div>
 </template>
@@ -84,13 +84,22 @@ async function DeleteKeep(keepId) {
 
 @media (min-width: 768px) {
     .keep-name {
-        font-size: 23.59px;
+        font-size: 36px;
         position: absolute;
-        left: 5%;
-        top: calc(100% - 50px);
+        left: 0%;
+        top: calc(100% - 65px);
         color: #F9F6FA;
         text-shadow: 2px 2px 2px black;
         width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+        padding-right: 2em;
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
+        border-radius: 10px;
+        padding-bottom: 3%;
+        
     }
 }
 
@@ -98,14 +107,17 @@ async function DeleteKeep(keepId) {
     .keep-name {
         width: 100%;
         font-size: 16px;
-        color: #F9F6FA;
-        text-shadow: 2px 2px 2px black;
         position: absolute;
         left: 0%;
         top: calc(100% - 30px);
+        color: #F9F6FA;
+        text-shadow: 2px 2px 2px black;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.9) 100%);
+        border-radius: 10px;
+        padding-bottom: 4%;
 
     }
 }

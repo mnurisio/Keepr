@@ -43,7 +43,7 @@ public class VaultKeepRepository
         profile_view.*
         FROM vault_keeps
         JOIN keeps ON keeps.id = vault_keeps.keep_id
-        JOIN profile_view ON profile_view.id = vault_keeps.creator_id
+        JOIN profile_view ON profile_view.id = keeps.creator_id
         WHERE vault_keeps.vault_id = @VaultId
         ;";
 

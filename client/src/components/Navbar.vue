@@ -22,18 +22,18 @@ function toggleTheme() {
 </script>
 
 <template>
-  <div class="navbar-border">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-page px-3">
-      <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-        <div class="d-flex flex-column align-items-center">
-          <button class="btn btn-info fw-bold">Home</button>
+  <div class="navbar-border py-2">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-page px-5">
+      <router-link class="navbar-brand d-flex m-0 p-0" :to="{ name: 'Home' }">
+        <div class="d-flex align-items-center">
+          <button class="btn btn-primary fw-bold px-4 py-3 fs-5" title="Home Page">Home</button>
         </div>
       </router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse justify-content-between" id="navbarText">
+      <div class="collapse navbar-collapse justify-content-between p-3" id="navbarText">
         <CreateDropdown />
         <!-- LOGIN COMPONENT HERE -->
         <Login />

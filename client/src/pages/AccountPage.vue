@@ -28,15 +28,6 @@ watch(route, () => {
 watch(account, getProfileKeeps)
 
 
-// async function getMyVaults() {
-//   try {
-//     await vaultsService.getMyVaults()
-//   }
-//   catch (error) {
-//     Pop.error(error);
-//   }
-// }
-
 async function getProfileKeeps() {
   try {
     const profileId = AppState.account?.id
@@ -60,7 +51,7 @@ async function getProfileKeeps() {
             <img class="profilePicture" :src="account.picture" :alt="account.name">
           </div>
           <div class="text-center fs-1 oxygen-bold">{{ account.name }}</div>
-          <div class="text-center oxygen-light">
+          <div class="text-center oxygen-bold">
             {{ vaults.length }} Vaults | {{ keeps.length }} Keeps
           </div>
         </div>
@@ -68,7 +59,7 @@ async function getProfileKeeps() {
     </div>
     <section>
       <div class="text-end edit-button">
-        <span role="button" data-bs-toggle="modal" data-bs-target="#accountEditModal"><i
+        <span title="Edit Account" role="button" data-bs-toggle="modal" data-bs-target="#accountEditModal"><i
             class="mdi mdi-pencil"></i></span>
       </div>
     </section>

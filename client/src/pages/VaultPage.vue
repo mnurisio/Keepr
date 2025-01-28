@@ -65,12 +65,12 @@ async function deleteVault(vaultId) {
         <div class="container">
             <div class="background-wrapper">
                 <section class="heroImg row justify-content-center p-3 text-center"
-                    :style="{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%), url(${vault.img})` }">
+                    :style="{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.7) 100%), url(${vault.img})` }">
                     <div class="align-self-end">
-                        <div class="quando-regular vault-name fs-1">
+                        <div class="quando-regular vault-name-top fs-1">
                             {{ vault.name }}
                         </div>
-                        <router-link :to="{ name: 'Profile', params: { profileId: vault.creatorId } }">
+                        <router-link :to="{ name: 'Profile', params: { profileId: vault.creatorId } }" title="Profile Page">
                         <div class="quando-regular vault-name">
                                 by {{ vault.creator.name }}
                             </div>
@@ -78,7 +78,7 @@ async function deleteVault(vaultId) {
                     </div>
                 </section>
                 <div v-if="vault.creatorId == account?.id">
-                    <button @click="deleteVault(vault.id)" class="delete-button"><i class="mdi mdi-trash-can"></i></button>
+                    <button @click="deleteVault(vault.id)" title="Delete Vault" class="delete-button"><i class="mdi mdi-trash-can"></i></button>
                 </div>
             </div>
             <section class="row text-center mb-md-3 mb-5">
@@ -92,11 +92,18 @@ async function deleteVault(vaultId) {
             </section>
             <section class="row mb-2">
                 <div class="masonry-container">
-                    <div v-for="vaultKeep in vaultKeeps" :key="vaultKeep.id" class="mb-3 masonry-object">
+                    <div v-for="vaultKeep in vaultKeeps" :key="vaultKeep.id" class="mb-4 masonry-object">
                         <VaultKeepKeepCard :vaultKeep="vaultKeep" />
                     </div>
                 </div>
             </section>
+        </div>
+    </div>
+    <div v-else class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Loading... <i class="mdi mdi-loading mdi-spin"></i></h2>
+            </div>
         </div>
     </div>
 </template>
@@ -124,7 +131,7 @@ async function deleteVault(vaultId) {
 
     .delete-button {
         position: absolute;
-        left: 72.5%;
+        right: calc(0% + 327px);
         top: calc(0% + 8px);
         aspect-ratio: 1/1;
         border-radius: 50%;
@@ -137,8 +144,8 @@ async function deleteVault(vaultId) {
 
     .delete-button {
         position: absolute;
-        left: 74.5%;
-        top: calc(0% + 90px);
+        right: calc(0% + 86px);
+        top: calc(0% + 125px);
         aspect-ratio: 1/1;
         border-radius: 50%;
         background-color: rgb(182, 0, 0) !important;
@@ -154,6 +161,23 @@ async function deleteVault(vaultId) {
     min-height: 20dvh;
 }
 
+@media(min-width: 768px) {
+
+    .vault-name-top {
+        color: #F9F6FA;
+        text-shadow: 3px 3px 5px black;
+        font-size: 23.59px;
+    }
+}
+
+@media(max-width: 768px) {
+
+    .vault-name-top {
+        color: #F9F6FA;
+        text-shadow: 3px 3px 5px black;
+        font-size: 16px;
+    }
+}
 @media(min-width: 768px) {
 
     .vault-name {
@@ -197,6 +221,7 @@ async function deleteVault(vaultId) {
 
     .masonry-container {
         columns: 150px;
+        column-gap: 2rem;
         width: 100%;
 
 
