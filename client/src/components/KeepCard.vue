@@ -87,7 +87,7 @@ async function DeleteKeep(keepId) {
         font-size: 36px;
         position: absolute;
         left: 0%;
-        top: calc(100% - 65px);
+        top: calc(100% - 67px);
         color: #F9F6FA;
         text-shadow: 2px 2px 2px black;
         width: 100%;
@@ -109,7 +109,7 @@ async function DeleteKeep(keepId) {
         font-size: 16px;
         position: absolute;
         left: 0%;
-        top: calc(100% - 30px);
+        top: calc(100% - 35px);
         color: #F9F6FA;
         text-shadow: 2px 2px 2px black;
         overflow: hidden;

@@ -22,7 +22,9 @@ accounts.picture,
 accounts.`updatedAt`
 FROM accounts
 
+DROP TABLE vaults
 
+DROP TABLE vault_keeps
 
 SELECT
         vault_keeps.*,
@@ -74,6 +76,10 @@ CREATE TABLE keeps(
   creator_id VARCHAR(255) NOT NULL,
   FOREIGN KEY (creator_id) REFERENCES accounts (id) ON DELETE CASCADE
 )
+
+DROP TABLE keeps
+
+DROP TABLE vault_keeps
 
 ALTER TABLE vaults
 MODIFY COLUMN description TEXT
