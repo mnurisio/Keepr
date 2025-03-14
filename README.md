@@ -21,7 +21,7 @@ Keepr is a web application that allows users to create and organize image collec
 
 ## 🎯 Project Purpose
 
-Keepr is a **portfolio project** designed to demonstrate full-stack development skills. It showcases the ability to build a dynamic web application with user authentication, database interactions, and front-end functionality. **This project is not intended for public installation or deployment.**
+Keepr is a **portfolio project** designed to demonstrate full-stack development skills. It showcases the ability to build a dynamic web application with user authentication, database interactions, and front-end functionality.
 
 ## ⚙️ Technical Highlights
 
