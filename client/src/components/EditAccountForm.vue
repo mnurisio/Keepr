@@ -33,7 +33,7 @@ async function editAccountInfo() {
     <form @submit.prevent="editAccountInfo()">
         <div class="form-floating mb-3">
             <input v-model="editableAccountData.name" type="text" class="form-control" id="name" placeholder="Name"
-                required minlength="3" maxlength="15">
+                required minlength="3" maxlength="25">
             <label for="name">Name...</label>
         </div>
         <div class="form-floating mb-3">

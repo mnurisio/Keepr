@@ -34,7 +34,7 @@ async function createVault() {
     <form @submit.prevent="createVault()">
         <div class="form-floating mb-3">
             <input v-model="editableVaultData.name" type="text" class="form-control" id="name" placeholder="Title"
-                required minlength="3" maxlength="15">
+                required minlength="3" maxlength="25">
             <label for="name">Title...</label>
         </div>
         <div class="form-floating mb-3">

@@ -35,7 +35,7 @@ async function createKeep() {
 <template>
     <form @submit.prevent="createKeep()">
         <div class="form-floating mb-3">
-            <input v-model="editableKeepData.name" type="text" class="form-control" id="name" placeholder="Name" required minlength="3" maxlength="15">
+            <input v-model="editableKeepData.name" type="text" class="form-control" id="name" placeholder="Name" required minlength="3" maxlength="25">
             <label for="name">Name...</label>
         </div>
         <div class="form-floating mb-3">
