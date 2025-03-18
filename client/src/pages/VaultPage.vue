@@ -70,12 +70,12 @@ async function deleteVault(vaultId) {
                         <div class="quando-regular vault-name-top fs-1">
                             {{ vault.name }}
                         </div>
-                        <router-link v-if="vault.creatorId != account.id" :to="{ name: 'Profile', params: { profileId: vault.creatorId } }" title="Profile Page">
+                        <router-link v-if="vault.creatorId != account?.id" :to="{ name: 'Profile', params: { profileId: vault.creatorId } }" title="Profile Page">
                         <div class="quando-regular vault-name">
                                 by {{ vault.creator.name }}
                             </div>
                         </router-link>
-                        <router-link v-if="vault.creatorId == account.id" :to="{ name: 'Account' }" title="Your Account Page">
+                        <router-link v-if="vault.creatorId == account?.id" :to="{ name: 'Account' }" title="Your Account Page">
                         <div class="quando-regular vault-name">
                                 by {{ vault.creator.name }}
                             </div>
