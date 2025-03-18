@@ -64,27 +64,27 @@ async function deleteVault(vaultId) {
     <div v-if="vault">
         <div class="container">
             <div class="background-wrapper">
-                <section class="heroImg row justify-content-center p-3 text-center"
+                <section class="heroImg row justify-content-center ps-3 pb-3 text-center"
                     :style="{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.7) 100%), url(${vault.img})` }">
-                    <div class="align-self-end">
+                    <div v-if="vault.creatorId == account?.id" class="text-end pe-0">
+                        <button @click="deleteVault(vault.id)" title="Delete Vault" class="delete-button"><i class="mdi mdi-trash-can"></i></button>
+                    </div>
+                    <div class="align-self-end pe-3 ps-0">
                         <div class="quando-regular vault-name-top fs-1">
                             {{ vault.name }}
                         </div>
                         <router-link v-if="vault.creatorId != account?.id" :to="{ name: 'Profile', params: { profileId: vault.creatorId } }" title="Profile Page">
-                        <div class="quando-regular vault-name">
+                            <div class="quando-regular vault-name">
                                 by {{ vault.creator.name }}
                             </div>
                         </router-link>
                         <router-link v-if="vault.creatorId == account?.id" :to="{ name: 'Account' }" title="Your Account Page">
-                        <div class="quando-regular vault-name">
+                            <div class="quando-regular vault-name">
                                 by {{ vault.creator.name }}
                             </div>
                         </router-link>
                     </div>
                 </section>
-                <div v-if="vault.creatorId == account?.id">
-                    <button @click="deleteVault(vault.id)" title="Delete Vault" class="delete-button"><i class="mdi mdi-trash-can"></i></button>
-                </div>
             </div>
             <section class="row text-center mb-md-3 mb-5">
                 <div class="mb-md-4 mb-2">
@@ -148,9 +148,6 @@ async function deleteVault(vaultId) {
 @media(max-width: 768px) {
 
     .delete-button {
-        position: absolute;
-        right: calc(0% + 86px);
-        top: calc(0% + 125px);
         aspect-ratio: 1/1;
         border-radius: 50%;
         background-color: rgb(182, 0, 0) !important;
