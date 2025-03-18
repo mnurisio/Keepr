@@ -48,7 +48,7 @@ async function DeleteKeep(keepId) {
             <i class="mdi mdi-close"></i>
         </button>
     </div>
-    <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal" class="keep-card" title="Open Keep">
+    <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal" class="keep-card" :title="'Open Keep: ' + keep.name">
         <img :src="keep.img" alt="Keep" class="keep-img">
         <div class="marko-one text-text container-fluid">
             <div class="row">

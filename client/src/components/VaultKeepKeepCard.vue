@@ -52,7 +52,7 @@ async function DeleteVaultKeep(vaultKeepId) {
             <i class="mdi mdi-close"></i>
         </button>
     </div>
-    <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal" class="keep-card" title="Open Keep">
+    <div @click="setActiveKeep()" role="button" data-bs-toggle="modal" data-bs-target="#keepModal" class="keep-card" :title="'Open Keep: ' + vaultKeep.name">
         <img :src="vaultKeep.img" alt="VaultKeep" class="keep-img">
         <div class="marko-one text-text">
             <div class="row">
