@@ -1,8 +1,6 @@
 <script setup>
 import Navbar from './components/Navbar.vue';
-import { AppState } from './AppState.js';
 import KeepModal from './components/KeepModal.vue';
-import ModalWrapper from './components/ModalWrapper.vue';
 
 </script>
 

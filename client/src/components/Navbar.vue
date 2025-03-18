@@ -25,21 +25,20 @@ function toggleTheme() {
 
 <template>
   <div class="navbar-border py-2">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-page px-5">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-page px-md-5 px-3">
       <router-link class="navbar-brand d-flex m-0 p-0" :to="{ name: 'Home' }">
         <div class="d-flex align-items-center">
-          <button class="btn btn-primary fw-bold px-4 py-3 fs-5" title="Home Page">Home</button>
+          <button class="btn btn-primary fw-bold px-3 py-2 fs-5" title="Home Page">Home</button>
         </div>
       </router-link>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+      <button class="navbar-toggler bg-primary py-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="text-dark fs-1"><i class="mdi mdi-menu"></i></span>
       </button>
-      <div class="collapse navbar-collapse justify-content-between p-3" id="navbarText">
-        <CreateDropdown v-if="account" />
-        <div v-else></div>
-        <!-- LOGIN COMPONENT HERE -->
-        <Login />
+      <div class="collapse navbar-collapse justify-content-between p-md-3 py-2 text-md-start text-center" id="navbarText">
+          <CreateDropdown v-if="account" />
+          <div v-else></div>
+          <Login />
       </div>
     </nav>
   </div>
@@ -70,6 +69,7 @@ a:hover {
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.425);
   ;
 }
+
 
 @media screen and (min-width: 576px) {
   nav {

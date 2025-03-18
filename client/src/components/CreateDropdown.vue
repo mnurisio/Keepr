@@ -5,7 +5,7 @@
 
 <template>
     <div class="dropdown">
-        <button class="btn btn-page dropdown-toggle px-4 py-3 fs-5 ms-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="create-button btn btn-page dropdown-toggle px-3 py-2 fs-5 ms-md-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             <b>Create</b>
         </button>
         <ul class="dropdown-menu oxygen-bold p-2 bg-secondary">
@@ -41,6 +41,8 @@
     background-color: transparent;
     font-weight: 700;
 }
+
+
 
 
 </style>
