@@ -24,7 +24,7 @@ defineProps({
         <router-link :to="{name: 'Vault', params: {vaultId: vault.id}}" :title="'Open Vault: ' + vault.name">
             <div :style="{backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 100%, rgba(0, 0, 0, 1.0) 100%), url(${vault.img})`}" class="vault-image d-flex align-items-end p-3">
                 <div class="row w-100 vault-row">
-                    <span class="vault-name marko-one">{{vault.name}} <i class="mdi mdi-lock"></i></span>
+                    <span class="vault-name marko-one"><i class="mdi mdi-lock"></i> {{vault.name}}</span>
                 </div>
             </div>
         </router-link>
@@ -46,6 +46,9 @@ defineProps({
     color: #F9F6FA;
     text-shadow: 3px 2px 2px black;
     font-size: 23.59px;
+    overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 }
 
 
