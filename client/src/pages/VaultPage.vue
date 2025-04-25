@@ -47,7 +47,7 @@ async function getVaultKeepsInVault() {
 
 async function deleteVault(vaultId) {
     try {
-        const confirm = await Pop.confirm("Are you sure you want to delete this keep?")
+        const confirm = await Pop.confirm("Are you sure you want to delete this vault?")
         if (!confirm) return
         await vaultsService.deleteVault(vaultId)
         router.push({name: 'Account'})
